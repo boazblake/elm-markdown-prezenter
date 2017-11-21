@@ -165,7 +165,8 @@ view model =
   div [class "container is-fluid"]
     [ title model
     , body model
-    , p [] [text (toString model)]
+    , contentViewer model
+    -- , p [] [text (toString model)]
     ]
 
 
@@ -218,8 +219,6 @@ slide slide =
             [ text "ADD NEXT"]
         ]
     ]
-
-
 
 
 slideForm : Model -> Html Msg
@@ -283,6 +282,26 @@ textAreaInput model =
               []
         ]
     ]
+
+
+contentViewer : Model -> Html Msg
+contentViewer model =
+  if (not (String.isEmpty model.contents)) then
+    div [class "section box"]
+      [ text (toString model.contents)]
+    else 
+      div [class "section box"]
+        [ ] 
+
+
+
+
+
+
+
+
+
+
 -- MAIN
 main : Program Never Model Msg
 main =
