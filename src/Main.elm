@@ -164,8 +164,7 @@ view : Model -> Html Msg
 view model =
   div [class "container is-fluid"]
     [ title model
-    , slideShowSection model
-    , slideForm model
+    , body model
     , p [] [text (toString model)]
     ]
 
@@ -180,10 +179,18 @@ title model =
       ]
     ]
 
+
+body : Model -> Html Msg
+body model =
+  div [ class "columns"]
+    [ slideForm model
+    , slideShowSection model
+    ]
+
 slideShowSection : Model -> Html Msg
 slideShowSection model =
-  div [ class "section"]
-        [ div [class "container"]
+  div [ class "column"]
+        [ div [class "section"]
           [ slidesCollection model  ]
       -- , slideShowActions model
         ]
@@ -198,7 +205,7 @@ slidesCollection model =
   
 slide : Slide -> Html Msg
 slide slide =
-  article [ class "column is-4 box"]
+  article [ class "column is-2 box"]
     [ div []
         [ i
           [ class "fa fa-edit"
@@ -217,8 +224,8 @@ slide slide =
 
 slideForm : Model -> Html Msg
 slideForm model =
-  div [class "section"] 
-    [ div [ class "container"]
+  div [class "column is-4"] 
+    [ div [ ]
       [ form [  onSubmit Save ]
           [ inputsSection model
           ]
@@ -235,7 +242,7 @@ inputsSection model =
 
 actionsSection : Model -> Html Msg
 actionsSection model =
-  div [ class "container"]
+  div [ class "section"]
     [  button [ class "button is-success", type_ "submit" ] [ text "Save" ]
     , button [ class "button is-danger", type_ "button", onClick Cancel] [ text "cancel" ]
     ]
