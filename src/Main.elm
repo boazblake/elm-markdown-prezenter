@@ -13,6 +13,7 @@ type alias Model =
   , contents : String
   , slideId : Maybe Int
   , showSlides : List ShowSlide
+  , currentPage : String
   }
 
 type alias Slide =
@@ -35,13 +36,10 @@ initModel =
   , contents = ""
   , slideId = Nothing
   , showSlides = []
+  , currentPage = "slidePicker"
   }
 
-
-
 -- UPDATE
-
-
 type Msg
   = EditSlide Slide
   | AddSlide Slide
@@ -50,6 +48,8 @@ type Msg
   | Save
   | Cancel
   | DeleteShow ShowSlide
+  | SwitchView String
+  | ToPickSlides
 
 update : Msg -> Model -> Model
 update msg model =
@@ -85,6 +85,11 @@ update msg model =
           , contents = slide.contents
           , slideId = Just slide.id
         }
+
+    SwitchView page ->
+      { model 
+        | currentPage = page
+      }
 
     _ ->
       model
@@ -162,9 +167,30 @@ add model =
 -- VIEW
 view : Model -> Html Msg
 view model =
+
   div [class "container is-fluid"]
     [ title model
-    , body model
+    , navbar model
+    , if model.currentPage == "slidePicker" then
+      renderSlidePickerPage model
+    else if model.currentPage == "slideViewer" then
+      div [] [text "show Slides here"]
+    else
+      renderSlidePickerPage model
+    ]
+
+navbar : Model -> Html Msg
+navbar model =
+  div [ class "section"]
+    [ button [ class "button", type_ "button", onClick (SwitchView "slidePicker")] [ text "PICK SLIDES" ]
+    , button [ class "button", type_ "button", onClick (SwitchView "slideViewer")] [ text "VIEW SLIDES" ]
+    ]
+
+
+renderSlidePickerPage : Model -> Html Msg
+renderSlidePickerPage model =
+  div [class "container is-fluid"]
+    [ body model
     , contentViewer model
     -- , p [] [text (toString model)]
     ]
