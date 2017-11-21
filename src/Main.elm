@@ -1,7 +1,7 @@
 module Main exposing (..)
 
-import Html exposing (Html, button, div, form, header, h1, i, input, li, p, text, textarea, ul)
-import Html.Attributes exposing (class, placeholder, type_, value)
+import Html exposing (Html, article, button, div, form, header, h1, i, input, p, text, textarea)
+import Html.Attributes exposing (class, placeholder, type_, value, width, max)
 import Html.Events exposing (onClick, onInput, onSubmit )
 
 
@@ -183,40 +183,33 @@ title model =
 slideShowSection : Model -> Html Msg
 slideShowSection model =
   div [ class "section"]
-    [
-      --  slideShowHeader model
-    slideShowList model
-    -- , slideShowActions model
-    ]
+        [ div [class "container"]
+          [ slidesCollection model  ]
+      -- , slideShowActions model
+        ]
 
-slideShowHeader : Model -> Html Msg
-slideShowHeader model =
-  header []
-    [ div [] 
-      [text (toString model.title)]
-    ]
-
-slideShowList : Model -> Html Msg
-slideShowList model =
-  -- ul []
-        -- (List.map slide model.slides)
+slidesCollection : Model -> Html Msg
+slidesCollection model =
   model.slides
     |> List.sortBy .title
     |> List.map slide
-    |> ul []
-
+    |> div [ class "columns is-multiline"]
+        -- (List.map slide model.slides)
+  
 slide : Slide -> Html Msg
 slide slide =
-  li []
-    [ i
-      [ class "fa fa-edit"
-      , onClick (EditSlide slide)
-      ]
-      []
-    , div []
-      [ text slide.title]
-    , button [ type_ "button", class "button", onClick (AddSlide slide)]
-        [ text "ADD NEXT"]
+  article [ class "column is-4 box"]
+    [ div []
+        [ i
+          [ class "fa fa-edit"
+          , onClick (EditSlide slide)
+          ]
+          []
+        , div []
+          [ text slide.title]
+        , button [ type_ "button", class "button", onClick (AddSlide slide)]
+            [ text "ADD NEXT"]
+        ]
     ]
 
 
