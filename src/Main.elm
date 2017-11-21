@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (Html, button, div, form, header, h1, input, p, text, textarea)
+import Html exposing (Html, button, div, form, header, h1, i, input, li, p, text, textarea, ul)
 import Html.Attributes exposing (class, placeholder, type_, value)
 import Html.Events exposing (onClick, onInput, onSubmit )
 
@@ -43,8 +43,8 @@ initModel =
 
 
 type Msg
-  = Edit Slide
-  | Score Slide Int
+  = EditSlide Slide
+  | AddSlide Slide
   | InputTitle String
   | InputContents String
   | Save
@@ -75,10 +75,28 @@ update msg model =
       else
         save model
 
+    AddSlide slide ->
+      addSlide model slide
+
+
+    EditSlide slide ->
+        { model 
+          | title = slide.title
+          , contents = slide.contents
+          , slideId = Just slide.id
+        }
+
     _ ->
       model
 
-
+addSlide : Model -> Slide -> Model
+addSlide model slide =
+  let
+    newShowSlide =
+      ShowSlide (List.length model.showSlides) slide.id slide.title slide.contents
+  in
+      { model
+        | showSlides = newShowSlide :: model.showSlides}
 
 save : Model -> Model
 save model =
@@ -146,7 +164,8 @@ view : Model -> Html Msg
 view model =
   div [class "container is-fluid"]
     [ title model
-    , playerForm model
+    , slideShowSection model
+    , slideForm model
     , p [] [text (toString model)]
     ]
 
@@ -161,8 +180,50 @@ title model =
       ]
     ]
 
-playerForm : Model -> Html Msg
-playerForm model =
+slideShowSection : Model -> Html Msg
+slideShowSection model =
+  div [ class "section"]
+    [
+      --  slideShowHeader model
+    slideShowList model
+    -- , slideShowActions model
+    ]
+
+slideShowHeader : Model -> Html Msg
+slideShowHeader model =
+  header []
+    [ div [] 
+      [text (toString model.title)]
+    ]
+
+slideShowList : Model -> Html Msg
+slideShowList model =
+  -- ul []
+        -- (List.map slide model.slides)
+  model.slides
+    |> List.sortBy .title
+    |> List.map slide
+    |> ul []
+
+slide : Slide -> Html Msg
+slide slide =
+  li []
+    [ i
+      [ class "fa fa-edit"
+      , onClick (EditSlide slide)
+      ]
+      []
+    , div []
+      [ text slide.title]
+    , button [ type_ "button", class "button", onClick (AddSlide slide)]
+        [ text "ADD NEXT"]
+    ]
+
+
+
+
+slideForm : Model -> Html Msg
+slideForm model =
   div [class "section"] 
     [ div [ class "container"]
       [ form [  onSubmit Save ]
