@@ -174,7 +174,7 @@ view model =
     , if model.currentPage == "slidePicker" then
       renderSlidePickerPage model
     else if model.currentPage == "slideViewer" then
-      div [] [text "show Slides here"]
+      renderSlideShow model
     else
       renderSlidePickerPage model
     ]
@@ -192,7 +192,7 @@ renderSlidePickerPage model =
   div [class "container is-fluid"]
     [ body model
     , contentViewer model
-    -- , p [] [text (toString model)]
+    , p [] [text (toString model)]
     ]
 
 
@@ -219,7 +219,6 @@ slideShowSection model =
   div [ class "column"]
         [ div [class "section"]
           [ slidesCollection model  ]
-      -- , slideShowActions model
         ]
 
 slidesCollection : Model -> Html Msg
@@ -233,17 +232,17 @@ slidesCollection model =
 slide : Slide -> Html Msg
 slide slide =
   article [ class "column is-2 box"]
-    [ div []
-        [ i
-          [ class "fa fa-edit"
-          , onClick (EditSlide slide)
-          ]
-          []
-        , div []
-          [ text slide.title]
-        , button [ type_ "button", class "button", onClick (AddSlide slide)]
-            [ text "ADD NEXT"]
-        ]
+    [ div [class "section"]
+      [ text slide.title]
+    , div [] 
+      [ button [ type_ "button", class "button", onClick (EditSlide slide)]
+          [ i  [ class "fa fa-edit" ]
+            []]
+    , button [ type_ "button", class "button", onClick (AddSlide slide)]
+          [ i  [ class "fa fa-share-square-o" ]
+            []
+            ]
+      ]
     ]
 
 
@@ -287,8 +286,7 @@ titleInput model =
               , placeholder "Add/Edit Slide Title ..."
               , onInput InputTitle
               , value model.title
-              ]
-                []
+              ] []
           ]
         ]
       ]
@@ -304,8 +302,7 @@ textAreaInput model =
             , placeholder "Add/Edit Slide Content ..."
             , onInput InputContents
             , value model.contents
-            ]
-              []
+            ] []
         ]
     ]
 
@@ -319,12 +316,56 @@ contentViewer model =
       div [class "section box"]
         [ ] 
 
+renderSlideShow : Model -> Html Msg
+renderSlideShow model =
+        div [] 
+        [ div [class "container"]
+          [ div [ class "columns"] 
+            [ previousButton model
+            , slideContentViewer model
+            , nextButton model
+            ]
+          ]
+        ]
 
+slideContentViewer : Model -> Html Msg
+slideContentViewer model =
+      let
+        slideShow =
+          List.reverse model.showSlides
 
+        currentSlide =
+          List.reverse model.showSlides
+            |> List.head
+            |> Debug.log "text"
+            |> toValue
+      in
+        div []
+          [ text (toString slideShow)
+                ,  div [ class "section box" ]
+                  [
+                  article [ class "media" ]
+                    [ text (toString currentSlide)]
+                  ]
+                ]
 
+toValue : Maybe ShowSlide -> String
+toValue maybeShowSlide =
+  case maybeShowSlide of
+    Just maybeShowSlide -> toString maybeShowSlide.contents
+    Nothing -> "You need to first select a slide"
 
+previousButton : Model -> Html Msg
+previousButton model =
+  div [class "column"]
+    [ button [ class "button", type_ "button"] [ text "PREVIOUS" ]
+    ]
 
-
+nextButton : Model -> Html Msg
+nextButton model =
+  div [class "column"]
+    [ button [ class "button", type_ "button"] [ text "NEXT" ]
+    ]
 
 
 
