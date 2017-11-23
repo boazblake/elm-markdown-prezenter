@@ -432,10 +432,10 @@ toHtml maybeSlide =
     Nothing ->
       "You need to pick a slide first"
 
-toMarkDown : message -> Html Msg
+toMarkDown : String -> Html Msg
 toMarkDown message =
   div [] 
-    <| Markdown.toHtml Nothing (toString message)
+    <| Markdown.toHtml Nothing message
 
 
 previousButton : Model -> Html Msg
