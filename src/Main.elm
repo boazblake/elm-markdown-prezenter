@@ -124,7 +124,7 @@ showAnotherSlide direction model =
             | currentSlideId = model.currentSlideId - 1
         }
 
-    "reset" ->
+    "restart" ->
           { model
             | currentSlideId = 0 
           }
@@ -373,7 +373,7 @@ renderSlideShow model =
             [ previousButton model
             , slideContentViewer model
             , nextButton model
-            , resetButton model
+            , restartButton model
             ]
           ]
         ]
@@ -450,10 +450,10 @@ nextButton model =
     [ button [ class "button", type_ "button", onClick (ShowAnotherSlide "+")] [ text "NEXT" ]
     ]
 
-resetButton : Model -> Html Msg
-resetButton model =
+restartButton : Model -> Html Msg
+restartButton model =
   div [class "column"]
-    [ button [ class "button", type_ "button", onClick (ShowAnotherSlide "reset")] [ text "RESET" ]
+    [ button [ class "button", type_ "button", onClick (ShowAnotherSlide "restart")] [ text "RESTART" ]
     ]
 
 -- MAIN
