@@ -109,10 +109,15 @@ showAnotherSlide : String -> Model -> Model
 showAnotherSlide direction model =
   case direction of
     "+" ->
+      if model.currentSlideId == ( List.length model.showSlides - 1)  then
+      model
+      else
         {model
           | currentSlideId = model.currentSlideId + 1 }
     
     "-" ->
+      if model.currentSlideId == 0 then model
+      else
         {model
           | currentSlideId = model.currentSlideId - 1 }
 
