@@ -360,7 +360,7 @@ contentViewer : Model -> Html Msg
 contentViewer model =
   if (not (String.isEmpty model.contents)) then
     div [class "section box"]
-      [ text (toString model.contents)]
+      [ toMarkDown model.contents]
     else 
       div [class "section box"]
         [ ] 
@@ -391,7 +391,7 @@ slideContentViewer model =
             -- |> Debug.log "text"
             |> toValue
             |> toHtml
-            -- |> toMarkDown
+            |> toMarkDown
 
 
       in
@@ -403,7 +403,7 @@ slideContentViewer model =
                 div [ class "section box" ]
                   [
                   article [ class "media" ]
-                    [ text currentSlide ]
+                    [ currentSlide ]
                   ]
                 ]
 
@@ -436,6 +436,7 @@ toMarkDown : message -> Html Msg
 toMarkDown message =
   div [] 
     <| Markdown.toHtml Nothing (toString message)
+
 
 previousButton : Model -> Html Msg
 previousButton model =
