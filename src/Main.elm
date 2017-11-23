@@ -3,6 +3,7 @@ module Main exposing (..)
 import Html exposing (Html, article, button, div, form, header, h1, i, input, p, text, textarea)
 import Html.Attributes exposing (class, placeholder, type_, value, width, max)
 import Html.Events exposing (onClick, onInput, onSubmit )
+import Markdown
 
 
 -- MODEL
@@ -12,6 +13,8 @@ type alias Model =
   , title : String
   , contents : String
   , slideId : Maybe Int
+  , currentSlide: Maybe ShowSlide
+  , currentSlideId: Int
   , showSlides : List ShowSlide
   , currentPage : String
   }
@@ -35,6 +38,8 @@ initModel =
   , title = ""
   , contents = ""
   , slideId = Nothing
+  , currentSlide = Nothing
+  , currentSlideId = 0
   , showSlides = []
   , currentPage = "slidePicker"
   }
@@ -50,6 +55,7 @@ type Msg
   | DeleteShow ShowSlide
   | SwitchView String
   | ToPickSlides
+  | ShowAnotherSlide String
 
 update : Msg -> Model -> Model
 update msg model =
@@ -91,17 +97,47 @@ update msg model =
         | currentPage = page
       }
 
+
+    ShowAnotherSlide direction ->
+      showAnotherSlide direction model
+
     _ ->
       model
 
+
+showAnotherSlide : String -> Model -> Model
+showAnotherSlide direction model =
+  case direction of
+    "+" ->
+        {model
+          | currentSlideId = model.currentSlideId + 1 }
+    
+    "-" ->
+        {model
+          | currentSlideId = model.currentSlideId - 1 }
+
+    _ ->
+      model
+     
+
 addSlide : Model -> Slide -> Model
 addSlide model slide =
+  
   let
     newShowSlide =
       ShowSlide (List.length model.showSlides) slide.id slide.title slide.contents
+  
+    isUnique x xs =
+      List.filter(\s -> s.slideId == x.slideId) xs
+
   in
+    if ( List.isEmpty (isUnique newShowSlide model.showSlides) ) then
       { model
-        | showSlides = newShowSlide :: model.showSlides}
+        | showSlides = newShowSlide :: model.showSlides }
+    
+    else
+      model
+      
 
 save : Model -> Model
 save model =
@@ -332,22 +368,46 @@ slideContentViewer : Model -> Html Msg
 slideContentViewer model =
       let
         slideShow =
-          List.reverse model.showSlides
+          model.showSlides
+            |> List.sortBy .id
 
         currentSlide =
-          List.reverse model.showSlides
-            |> List.head
+          (List.sortBy .id model.showSlides, model.currentSlideId)
+            |> toCurrentSlide
             |> Debug.log "text"
-            |> toValue
+            |> toHtml
+            -- |> toValue
+            -- |> toMarkDown
+
+
       in
         div []
           [ text (toString slideShow)
+          , div[] [text "----------------------"]
+          , text (toString model)
                 ,  div [ class "section box" ]
                   [
                   article [ class "media" ]
-                    [ text (toString currentSlide)]
+                    [ currentSlide ]
                   ]
                 ]
+
+
+toCurrentSlide : ( List ShowSlide, Int) -> (List ShowSlide, Int)
+toCurrentSlide ( slides, chosenId) =
+  (List.filter
+    (\s ->
+      s.id == chosenId
+    )
+    slides, chosenId)
+
+
+
+
+
+toHtml : (List ShowSlide, Int) -> Html Msg
+toHtml (slides, id) =
+  Html.text (toString (slides, id))
 
 toValue : Maybe ShowSlide -> String
 toValue maybeShowSlide =
@@ -355,16 +415,22 @@ toValue maybeShowSlide =
     Just maybeShowSlide -> toString maybeShowSlide.contents
     Nothing -> "You need to first select a slide"
 
+
+toMarkDown : message -> Html Msg
+toMarkDown message =
+  div [] 
+    <| Markdown.toHtml Nothing (toString message)
+
 previousButton : Model -> Html Msg
 previousButton model =
   div [class "column"]
-    [ button [ class "button", type_ "button"] [ text "PREVIOUS" ]
+    [ button [ class "button", type_ "button", onClick (ShowAnotherSlide "-")] [ text "PREVIOUS" ]
     ]
 
 nextButton : Model -> Html Msg
 nextButton model =
   div [class "column"]
-    [ button [ class "button", type_ "button"] [ text "NEXT" ]
+    [ button [ class "button", type_ "button", onClick (ShowAnotherSlide "+")] [ text "NEXT" ]
     ]
 
 
