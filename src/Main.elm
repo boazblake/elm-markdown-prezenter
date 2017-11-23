@@ -373,7 +373,6 @@ renderSlideShow model =
             [ previousButton model
             , slideContentViewer model
             , nextButton model
-            , restartButton model
             ]
           ]
         ]
@@ -395,16 +394,19 @@ slideContentViewer model =
 
 
       in
-        div []
+        div [class "column is-four-fifths"]
           [ 
             -- text (toString slideShow)
           -- , div[] [text "----------------------"]
           -- , text (toString model)
-                div [ class "section box" ]
+                div [ class "hero box is-bold" ]
                   [
                   article [ class "media" ]
-                    [ currentSlide ]
+                    [ currentSlide ]                    
                   ]
+                , div [ ]
+                    [ restartButton model]
+                  
                 ]
 
 
