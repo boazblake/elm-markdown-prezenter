@@ -110,16 +110,24 @@ showAnotherSlide direction model =
   case direction of
     "+" ->
       if model.currentSlideId == ( List.length model.showSlides - 1)  then
-      model
+        model
       else
-        {model
-          | currentSlideId = model.currentSlideId + 1 }
+        { model
+            | currentSlideId = model.currentSlideId + 1 
+        }
     
     "-" ->
-      if model.currentSlideId == 0 then model
+      if model.currentSlideId == 0 then 
+        model
       else
-        {model
-          | currentSlideId = model.currentSlideId - 1 }
+        { model
+            | currentSlideId = model.currentSlideId - 1
+        }
+
+    "reset" ->
+          { model
+            | currentSlideId = 0 
+          }
 
     _ ->
       model
@@ -365,6 +373,7 @@ renderSlideShow model =
             [ previousButton model
             , slideContentViewer model
             , nextButton model
+            , resetButton model
             ]
           ]
         ]
@@ -438,7 +447,11 @@ nextButton model =
     [ button [ class "button", type_ "button", onClick (ShowAnotherSlide "+")] [ text "NEXT" ]
     ]
 
-
+resetButton : Model -> Html Msg
+resetButton model =
+  div [class "column"]
+    [ button [ class "button", type_ "button", onClick (ShowAnotherSlide "reset")] [ text "RESET" ]
+    ]
 
 -- MAIN
 main : Program Never Model Msg
