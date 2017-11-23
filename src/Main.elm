@@ -241,7 +241,7 @@ renderSlidePickerPage model =
   div [class "container is-fluid"]
     [ body model
     , contentViewer model
-    , p [] [text (toString model)]
+    -- , p [] [text (toString model)]
     ]
 
 
@@ -388,21 +388,22 @@ slideContentViewer model =
         currentSlide =
           (List.sortBy .id model.showSlides, model.currentSlideId)
             |> toCurrentSlide
-            |> Debug.log "text"
+            -- |> Debug.log "text"
+            |> toValue
             |> toHtml
-            -- |> toValue
             -- |> toMarkDown
 
 
       in
         div []
-          [ text (toString slideShow)
-          , div[] [text "----------------------"]
-          , text (toString model)
-                ,  div [ class "section box" ]
+          [ 
+            -- text (toString slideShow)
+          -- , div[] [text "----------------------"]
+          -- , text (toString model)
+                div [ class "section box" ]
                   [
                   article [ class "media" ]
-                    [ currentSlide ]
+                    [ text currentSlide ]
                   ]
                 ]
 
@@ -415,20 +416,21 @@ toCurrentSlide ( slides, chosenId) =
     )
     slides, chosenId)
 
+toValue : (List ShowSlide, Int) -> Maybe ShowSlide
+toValue (slides, id) =
+  if List.length slides == 0 then
+    Nothing
+  else
+    List.head slides
+    
 
-
-
-
-toHtml : (List ShowSlide, Int) -> Html Msg
-toHtml (slides, id) =
-  Html.text (toString (slides, id))
-
-toValue : Maybe ShowSlide -> String
-toValue maybeShowSlide =
-  case maybeShowSlide of
-    Just maybeShowSlide -> toString maybeShowSlide.contents
-    Nothing -> "You need to first select a slide"
-
+toHtml : Maybe ShowSlide -> String
+toHtml maybeSlide =
+  case maybeSlide of
+    Just maybeSlide ->
+      maybeSlide.contents
+    Nothing ->
+      "You need to pick a slide first"
 
 toMarkDown : message -> Html Msg
 toMarkDown message =
