@@ -6,8 +6,8 @@ import Html.Attributes exposing (class, placeholder, type_, value, width, max)
 import Html.Events exposing (onClick, onInput, onSubmit )
 import Markdown
 
-import Models exposing (..)
-import Messages exposing (..)
+import Models exposing (Model, Slide, ShowSlide)
+import Messages exposing (Msg(..))
 
 
 
