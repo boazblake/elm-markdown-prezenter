@@ -1,5 +1,8 @@
 module Models exposing (..)
 
+
+
+import RemoteData exposing (WebData)
 -- MODEL
 
 type alias Model =
@@ -10,6 +13,7 @@ type alias Model =
   , currentSlide: Maybe ShowSlide
   , currentSlideId: Int
   , showSlides : List ShowSlide
+  , dbSlides : WebData (List Slide)
   , currentPage : String
   }
 
@@ -35,5 +39,6 @@ initModel =
   , currentSlide = Nothing
   , currentSlideId = 0
   , showSlides = []
+  , dbSlides = RemoteData.Loading
   , currentPage = "slidePicker"
   }

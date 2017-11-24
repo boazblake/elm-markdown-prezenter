@@ -194,10 +194,10 @@ slideContentViewer model =
       in
         div [class "column is-four-fifths"]
           [ 
-            -- text (toString slideShow)
+          --   text (toString slideShow)
           -- , div[] [text "----------------------"]
           -- , text (toString model)
-                div [ class "hero box is-bold" ]
+               div [ class "hero box is-bold" ]
                   [
                   article [ class "media" ]
                     [ currentSlide ]                    

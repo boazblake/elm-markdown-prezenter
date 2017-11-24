@@ -1,5 +1,7 @@
 module Messages exposing (..)
 
+import RemoteData exposing (WebData)
+
 
 import Models exposing (Slide, ShowSlide)
 
@@ -16,4 +18,4 @@ type Msg
   | SwitchView String
   | ToPickSlides
   | ShowAnotherSlide String
-
+  | OnInitialLoad (WebData(List(Slide)))

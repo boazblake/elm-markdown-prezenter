@@ -1,6 +1,9 @@
 module Updates exposing (..)
 
 
+
+import RemoteData exposing (WebData)
+
 import Messages exposing (Msg(..))
 import Models exposing (Model, Slide, ShowSlide)
 
@@ -8,6 +11,9 @@ import Models exposing (Model, Slide, ShowSlide)
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
+    OnInitialLoad response ->
+      parseSlides model response
+
     InputTitle title ->
       ({ model | title = title }, Cmd.none)
 
@@ -58,6 +64,31 @@ update msg model =
 
     _ ->
       (model, Cmd.none)
+
+
+
+parseSlides :  Model -> WebData (List Slide) -> (Model, Cmd Msg)
+parseSlides model maybeModel =
+  case maybeModel of
+    RemoteData.NotAsked ->
+      (model, Cmd.none)
+    
+    RemoteData.Loading ->
+      (model, Cmd.none)
+
+    RemoteData.Success dbSlides ->
+      (
+        { model 
+          | slides = dbSlides
+        }
+        , Cmd.none
+      )
+
+    RemoteData.Failure error ->
+      (
+        model
+        , Cmd.none
+      )
 
 
 showAnotherSlide : String -> Model -> (Model, Cmd Msg)

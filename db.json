@@ -1,1 +1,9 @@
-{}
+{
+  "slides": [
+    {
+      "id": 0,
+      "title": "First DB slide",
+      "contents": "Contents of the first DB slide"
+    }
+  ]
+}
