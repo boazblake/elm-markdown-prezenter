@@ -1,7 +1,10 @@
-import './main.css';
-import { Main } from './Main.elm';
-import registerServiceWorker from './registerServiceWorker';
+import './main.css'
+import 'font-awesome/css/font-awesome.min.css'
+import 'bulma/css/bulma.css'
 
-Main.embed(document.getElementById('root'));
+import { Main } from './Main.elm'
+import registerServiceWorker from './registerServiceWorker'
 
-registerServiceWorker();
+Main.embed(document.getElementById('root'))
+
+registerServiceWorker()
