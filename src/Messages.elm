@@ -1,9 +1,10 @@
 module Messages exposing (..)
 
+import Http
 import RemoteData exposing (WebData)
 
 
-import Models exposing (Slide, ShowSlide)
+import Models exposing (Slide, Slides, ShowSlide)
 
 
 
@@ -19,3 +20,4 @@ type Msg
   | ToPickSlides
   | ShowAnotherSlide String
   | OnInitialLoad (WebData(List(Slide)))
+  | OnSlideSave (Result Http.Error List Slide)

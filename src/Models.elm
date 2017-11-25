@@ -23,6 +23,9 @@ type alias Slide =
   , contents : String
   }
 
+type alias Slides =
+  { slides : List Slide}
+
 type alias ShowSlide =
   { id : Int
   , slideId : Int
