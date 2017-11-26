@@ -34,10 +34,10 @@ slideDecoder =
     |> required "contents" Decode.string
 
 
-saveSlidesRequest : List Slide -> Http.Request (List Slide)
-saveSlidesRequest slides =
+saveSlidesRequest : Slide -> Http.Request (List Slide)
+saveSlidesRequest slide =
   Http.request
-    { body = slidesEncoder slides |> toHttpBody
+    { body = slideEncoder slide |> Http.jsonBody
     , expect = Http.expectJson slidesDecoder
     , headers = []
     , method = "POST"
@@ -47,10 +47,10 @@ saveSlidesRequest slides =
     }
 
 toHttpBody : Encode.Value -> Http.Body
-toHttpBody slides =
-  Http.jsonBody slides
+toHttpBody slide =
+  Http.jsonBody (Debug.log "slides being saved?"slide)
 
-saveSlidesCmd : List Slide -> Cmd Msg
+saveSlidesCmd : Slide -> Cmd Msg
 saveSlidesCmd model =
   saveSlidesRequest model |>
     Http.send Messages.OnSlideSave 

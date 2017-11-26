@@ -62,8 +62,7 @@ update msg model =
       showAnotherSlide direction model
 
     OnSlideSave (Ok slides) ->
-      Debug.log"SUCCESS"
-      updateSlides model slides
+      updateSlides model (Debug.log"SUCCESS" slides)
 
     OnSlideSave (Err err) ->
       Debug.log"ERROR"
@@ -168,16 +167,16 @@ save model =
 edit : Model -> Int -> (Model, Cmd Msg)
 edit model id =
   let
+
+    updatedSlide model slide =
+      {slide | title = model.title, contents = model.contents}
+
     newSlides =
       List.map
         (\slide ->
           if slide.id == id then
-    Debug.log "editing slides?"
-          
-            { slide
-              | title = model.title
-              , contents = model.contents
-            }
+            Debug.log "editing slides?"
+            updatedSlide model slide
           else slide
         )
           model.slides
@@ -203,7 +202,7 @@ edit model id =
         , contents = ""
         , slideId = Nothing
         }
-        , saveSlidesCmd newSlides
+        , saveSlidesCmd (updatedSlide model newSlides)
       )
 
 add : Model -> (Model, Cmd Msg)
@@ -223,5 +222,5 @@ add model =
       , title = ""
       , contents = ""
       }
-      , saveSlidesCmd newSlides
+      , saveSlidesCmd slide
     )
