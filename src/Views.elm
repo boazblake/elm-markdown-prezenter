@@ -158,7 +158,8 @@ contentViewer : Model -> Html Msg
 contentViewer model =
   if (not (String.isEmpty model.contents)) then
     div [class "section box"]
-      [ toMarkDown model.contents]
+      [ div [class "content"] 
+        [toMarkDown model.contents]]
     else 
       div [class "section box"]
         [ ] 
@@ -200,7 +201,8 @@ slideContentViewer model =
                div [ class "hero box is-bold" ]
                   [
                   article [ class "media" ]
-                    [ currentSlide ]                    
+                    [ div [class "content"] 
+                      [ currentSlide ] ]                    
                   ]
                 , div [ ]
                     [ restartButton model]
