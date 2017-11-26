@@ -11,13 +11,13 @@ import Models exposing (Slide, Model, Slides)
 
 fetchSlides : Cmd Msg
 fetchSlides = 
-  Http.get fetchSlidesUrl slidesDecoder
+  Http.get slidesUrl slidesDecoder
    |> RemoteData.sendRequest
    |> Cmd.map Messages.OnInitialLoad
 
 
-fetchSlidesUrl : String
-fetchSlidesUrl =
+slidesUrl : String
+slidesUrl =
   "http://localhost:4000/slides"
 
 
@@ -33,9 +33,6 @@ slideDecoder =
     |> required "title" Decode.string
     |> required "contents" Decode.string
 
-saveSlidesUrl : String
-saveSlidesUrl =
-  "http://localhost:4000/slides"
 
 saveSlidesRequest : List Slide -> Http.Request (List Slide)
 saveSlidesRequest slides =
@@ -43,9 +40,9 @@ saveSlidesRequest slides =
     { body = slidesEncoder slides |> toHttpBody
     , expect = Http.expectJson slidesDecoder
     , headers = []
-    , method = "PUT"
+    , method = "POST"
     , timeout = Nothing
-    , url = saveSlidesUrl
+    , url = slidesUrl
     , withCredentials = False
     }
 

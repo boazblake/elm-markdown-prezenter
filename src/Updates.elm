@@ -58,14 +58,28 @@ update msg model =
         | currentPage = page
       }, Cmd.none)
 
-
     ShowAnotherSlide direction ->
       showAnotherSlide direction model
+
+    OnSlideSave (Ok slides) ->
+      Debug.log"SUCCESS"
+      updateSlides model slides
+
+    OnSlideSave (Err err) ->
+      Debug.log"ERROR"
+      (model, Cmd.none)
 
     _ ->
       (model, Cmd.none)
 
 
+updateSlides : Model -> List Slide -> (Model, Cmd Msg)
+updateSlides model fromDbSlides =
+  ( { model
+        | slides = fromDbSlides
+    }
+    , Cmd.none
+  )
 
 parseSlides :  Model -> WebData (List Slide) -> (Model, Cmd Msg)
 parseSlides model maybeModel =
