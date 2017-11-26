@@ -39,8 +39,8 @@ update msg model =
       else
         save model
 
-    AddSlide slide ->
-      addSlide model slide
+    AddSlideToShow slide ->
+      addSlideToShow model slide
 
 
     EditSlide slide ->
@@ -62,12 +62,12 @@ update msg model =
       showAnotherSlide direction model
 
     OnSlideSave (Ok slides) ->
-      Debug.log"SUCCESS"
-      updateSlides model slides
+     ( Debug.log"SUCCESS"
+      updateSlides model slides)
 
     OnSlideSave (Err err) ->
-      Debug.log"ERROR"
-      (model, Cmd.none)
+      (Debug.log"ERROR"
+      (model, Cmd.none))
 
     _ ->
       (model, Cmd.none)
@@ -134,8 +134,8 @@ showAnotherSlide direction model =
       (model, Cmd.none)
      
 
-addSlide : Model -> Slide -> (Model, Cmd Msg)
-addSlide model slide =
+addSlideToShow : Model -> Slide -> (Model, Cmd Msg)
+addSlideToShow model slide =
   
   let
     newShowSlide =

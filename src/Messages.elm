@@ -10,7 +10,7 @@ import Models exposing (Slide, Slides, ShowSlide)
 
 type Msg
   = EditSlide Slide
-  | AddSlide Slide
+  | AddSlideToShow Slide
   | InputTitle String
   | InputContents String
   | Save

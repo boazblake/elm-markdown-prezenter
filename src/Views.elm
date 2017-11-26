@@ -85,7 +85,7 @@ slide slide =
       [ button [ type_ "button", class "button", onClick (EditSlide slide)]
           [ i  [ class "fa fa-edit" ]
             []]
-    , button [ type_ "button", class "button", onClick (AddSlide slide)]
+    , button [ type_ "button", class "button", onClick (AddSlideToShow slide)]
           [ i  [ class "fa fa-share-square-o" ]
             []
             ]
