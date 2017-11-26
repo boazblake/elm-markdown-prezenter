@@ -1,52 +1,19 @@
 {
   "slides": [
     {
-      "id": 0,
-      "title": "first slide",
-      "contents": "did this mutherfucking work `yet`???"
+      "id": 2,
+      "title": "lhbvhgcf",
+      "contents": "mghcn`fc`"
     },
-    [
-      {
-        "id": 0,
-        "title": "first slide",
-        "contents": "did this work `yet`???"
-      }
-    ],
-    [
-      {
-        "id": 0,
-        "title": "second slide",
-        "contents": "is this still working?"
-      }
-    ],
-    [
-      {
-        "id": 1,
-        "title": "is it gone?",
-        "contents": "did I remove the slide???"
-      },
-      {
-        "id": 0,
-        "title": "second slide",
-        "contents": "is this still working?"
-      }
-    ],
-    [
-      {
-        "id": 2,
-        "title": "edited",
-        "contents": "no I think I over wrote it"
-      },
-      {
-        "id": 1,
-        "title": "is it gone?",
-        "contents": "did I remove the slide???"
-      },
-      {
-        "id": 0,
-        "title": "second slide",
-        "contents": "is this still working?"
-      }
-    ]
+    {
+      "id": 1,
+      "title": "bbbb",
+      "contents": "bbbb"
+    },
+    {
+      "id": 0,
+      "title": "aaaa",
+      "contents": "aaaa"
+    }
   ]
 }

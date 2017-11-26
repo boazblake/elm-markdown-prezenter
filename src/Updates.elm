@@ -172,6 +172,8 @@ edit model id =
       List.map
         (\slide ->
           if slide.id == id then
+    Debug.log "editing slides?"
+          
             { slide
               | title = model.title
               , contents = model.contents
@@ -212,6 +214,7 @@ add model =
     Slide (List.length model.slides) model.title model.contents
 
     newSlides =
+    Debug.log "adding slides?"  
       slide :: model.slides
   in
     (
