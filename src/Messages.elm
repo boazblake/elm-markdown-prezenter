@@ -20,4 +20,4 @@ type Msg
   | ToPickSlides
   | ShowAnotherSlide String
   | OnInitialLoad (WebData(List(Slide)))
-  | OnSlideSave (Result Http.Error List Slide)
+  | OnSlideSave (Result Http.Error (List Slide))

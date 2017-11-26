@@ -7,7 +7,7 @@ import Json.Decode as Decode
 import Json.Encode as Encode exposing (..)
 import Json.Decode.Pipeline exposing (decode, required)
 import Messages exposing (Msg)
-import Models exposing (Slide, Model)
+import Models exposing (Slide, Model, Slides)
 
 fetchSlides : Cmd Msg
 fetchSlides = 
@@ -49,24 +49,18 @@ saveSlidesRequest slides =
     , withCredentials = False
     }
 
-toHttpBody : String -> Http.Body
-toHttpBody someString =
-  Http.jsonBody someString
+toHttpBody : Encode.Value -> Http.Body
+toHttpBody slides =
+  Http.jsonBody slides
 
 saveSlidesCmd : List Slide -> Cmd Msg
-saveSlidesCmd slides =
-  saveSlidesRequest slides |>
-    Http.send Messages.OnSlideSave
+saveSlidesCmd model =
+  saveSlidesRequest model |>
+    Http.send Messages.OnSlideSave 
 
-slidesEncoder : List Slide -> String
+slidesEncoder : List Slide -> Encode.Value
 slidesEncoder slides =
-  encode object (slidesReducer slides)
-
-slidesReducer : List Slide -> Encode.Value
-slidesReducer slides =
-  Encode.list ( List.map(slideEncoder)slides)
-
-
+  Encode.list (List.map(slideEncoder)slides)
 
 slideEncoder : Slide -> Encode.Value
 slideEncoder slide =
@@ -77,5 +71,5 @@ slideEncoder slide =
       , ("contents", Encode.string slide.contents)
       ]
   in
-    Encode.object (attributes)
+    Encode.object attributes
   

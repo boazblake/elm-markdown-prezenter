@@ -1,6 +1,6 @@
 module Updates exposing (..)
 
-
+import Commands exposing (saveSlidesCmd)
 
 import RemoteData exposing (WebData)
 
@@ -187,7 +187,7 @@ edit model id =
         , contents = ""
         , slideId = Nothing
         }
-        , Cmd.none
+        , saveSlidesCmd newSlides
       )
 
 add : Model -> (Model, Cmd Msg)
@@ -206,5 +206,5 @@ add model =
       , title = ""
       , contents = ""
       }
-      , Cmd.none
+      , saveSlidesCmd newSlides
     )
