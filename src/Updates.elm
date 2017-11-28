@@ -20,7 +20,7 @@ update msg model =
     InputContents content ->
       (
         { model
-        | contents = content 
+        | contents = content
         }
         , Cmd.none
       )
@@ -32,7 +32,7 @@ update msg model =
         , slideId = Nothing
       }
       , Cmd.none)
-    
+
     Save ->
       if (String.isEmpty model.title || String.isEmpty model.contents) then
         (model, Cmd.none)
@@ -45,7 +45,7 @@ update msg model =
 
     EditSlide slide ->
       (
-        { model 
+        { model
         | title = slide.title
         , contents = slide.contents
         , slideId = Just slide.id
@@ -54,7 +54,7 @@ update msg model =
       )
 
     SwitchView page ->
-      ({ model 
+      ({ model
         | currentPage = page
       }, Cmd.none)
 
@@ -86,13 +86,13 @@ parseSlides model maybeModel =
   case maybeModel of
     RemoteData.NotAsked ->
       (model, Cmd.none)
-    
+
     RemoteData.Loading ->
       (model, Cmd.none)
 
     RemoteData.Success dbSlides ->
       (
-        { model 
+        { model
           | slides = dbSlides
         }
         , Cmd.none
@@ -113,12 +113,12 @@ showAnotherSlide direction model =
         (model, Cmd.none)
       else
         ({ model
-            | currentSlideId = model.currentSlideId + 1 
+            | currentSlideId = model.currentSlideId + 1
         }
         , Cmd.none)
-    
+
     "-" ->
-      if model.currentSlideId == 0 then 
+      if model.currentSlideId == 0 then
         (model, Cmd.none)
       else
         ({ model
@@ -127,20 +127,20 @@ showAnotherSlide direction model =
 
     "restart" ->
           ({ model
-            | currentSlideId = 0 
+            | currentSlideId = 0
           }, Cmd.none)
 
     _ ->
       (model, Cmd.none)
-     
+
 
 addSlideToShow : Model -> Slide -> (Model, Cmd Msg)
 addSlideToShow model slide =
-  
+
   let
     newShowSlide =
       ShowSlide (List.length model.showSlides) slide.id slide.title slide.contents
-  
+
     isUnique x xs =
       List.filter(\s -> s.slideId == x.slideId) xs
 
@@ -148,20 +148,20 @@ addSlideToShow model slide =
     if ( List.isEmpty (isUnique newShowSlide model.showSlides) ) then
       (
         { model
-        | showSlides = newShowSlide :: model.showSlides 
+        | showSlides = newShowSlide :: model.showSlides
         }
         , Cmd.none
       )
-    
+
     else
       (model, Cmd.none)
-      
+
 
 save : Model -> (Model, Cmd Msg)
 save model =
   case model.slideId of
     Just id ->
-      edit model id 
+      edit model id
     Nothing ->
       add model
 
@@ -173,7 +173,7 @@ edit model id =
         (\slide ->
           if slide.id == id then
     Debug.log "editing slides?"
-          
+
             { slide
               | title = model.title
               , contents = model.contents
@@ -186,7 +186,7 @@ edit model id =
       List.map
         (\slideShow ->
           if slideShow.slideId == id then
-            { slideShow 
+            { slideShow
               | title = model.title
               , contents = model.contents
             }
@@ -214,7 +214,7 @@ add model =
     Slide (List.length model.slides) model.title model.contents
 
     newSlides =
-    Debug.log "adding slides?"  
+    Debug.log "adding slides?"
       slide :: model.slides
   in
     (

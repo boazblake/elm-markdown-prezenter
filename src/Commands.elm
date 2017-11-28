@@ -1,6 +1,5 @@
 module Commands exposing (..)
 
-import Array exposing (fromList, toList)
 import Http
 import RemoteData
 import Json.Decode as Decode
@@ -10,7 +9,7 @@ import Messages exposing (Msg)
 import Models exposing (Slide, Model, Slides)
 
 fetchSlides : Cmd Msg
-fetchSlides = 
+fetchSlides =
   Http.get slidesUrl slidesDecoder
    |> RemoteData.sendRequest
    |> Cmd.map Messages.OnInitialLoad
@@ -53,7 +52,7 @@ toHttpBody slides =
 saveSlidesCmd : List Slide -> Cmd Msg
 saveSlidesCmd model =
   saveSlidesRequest model |>
-    Http.send Messages.OnSlideSave 
+    Http.send Messages.OnSlideSave
 
 slidesEncoder : List Slide -> Encode.Value
 slidesEncoder slides =
@@ -69,4 +68,3 @@ slideEncoder slide =
       ]
   in
     Encode.object attributes
-  

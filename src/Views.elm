@@ -1,11 +1,10 @@
 module Views exposing (..)
 
 
-import Html exposing (Html, article, button, div, form, header, h1, i, input, p, pre, text, textarea)
-import Html.Attributes exposing (class, placeholder, type_, value, width, max)
+import Html exposing (Html, a, nav, article, button, div, form, header, h1, i, input, p, pre, text, textarea)
+import Html.Attributes exposing (class, placeholder, type_, value, width, max, style)
 import Html.Events exposing (onClick, onInput, onSubmit )
 import Markdown
-
 import Models exposing (Model, Slide, ShowSlide)
 import Messages exposing (Msg(..))
 
@@ -15,7 +14,7 @@ import Messages exposing (Msg(..))
 view : Model -> Html Msg
 view model =
 
-  div [class "container is-fluid"]
+  div [class "container hero is-light is-bold is-fluid"]
     [ title model
     , navbar model
     , if model.currentPage == "slidePicker" then
@@ -28,10 +27,16 @@ view model =
 
 navbar : Model -> Html Msg
 navbar model =
-  div [ class "section"]
-    [ button [ class "button", type_ "button", onClick (SwitchView "slidePicker")] [ text "PICK SLIDES" ]
-    , button [ class "button", type_ "button", onClick (SwitchView "slideViewer")] [ text "VIEW SLIDES" ]
-    ]
+  nav [class "navbar hero is-primary is-bold"]
+      [ div [ class "navbar-menu"]
+        [ div [class "navbar-start"]
+            [  a [class "navbar-item",  onClick (SwitchView "slidePicker")]
+                [ text "PICK SLIDES" ]
+            , a [class "navbar-item",  onClick (SwitchView "slideViewer")]
+                [ text "VIEW SLIDES" ]
+            ]
+        ]
+      ]
 
 
 renderSlidePickerPage : Model -> Html Msg
@@ -39,7 +44,7 @@ renderSlidePickerPage model =
   div [class "container is-fluid"]
     [ body model
     , contentViewer model
-    , p [] [text (toString model)]
+    -- , p [] [text (toString model)]
     ]
 
 
@@ -48,7 +53,7 @@ title model =
   div [ class "hero is-primary is-bold"  ]
     [ div [ class "hero-body"  ]
       [ header [class "container"]
-        [ h1 [class "title is-1 is-spaced"] [text "PREZENTER"]
+        [ h1 [class "title is-1 is-spaced", style[("text-align", "center")]] [text "PREZENTER"]
         ]
       ]
     ]
@@ -73,15 +78,15 @@ slidesCollection model =
   model.slides
     |> List.sortBy .title
     |> List.map slide
-    |> div [ class "columns is-multiline"]
+    |> div [ class "columns is-variable is-3 is-multiline"]
         -- (List.map slide model.slides)
-  
+
 slide : Slide -> Html Msg
 slide slide =
-  article [ class "column is-2 box"]
-    [ div [class "section"]
+  article [ class "column is-2 box notification"]
+    [ div [class "section" ]
       [ text slide.title]
-    , div [] 
+    , div []
       [ button [ type_ "button", class "button", onClick (EditSlide slide)]
           [ i  [ class "fa fa-edit" ]
             []]
@@ -95,7 +100,7 @@ slide slide =
 
 slideForm : Model -> Html Msg
 slideForm model =
-  div [class "column is-4"] 
+  div [class "column is-4"]
     [ div [ ]
       [ form [  onSubmit Save ]
           [ inputsSection model
@@ -158,18 +163,18 @@ contentViewer : Model -> Html Msg
 contentViewer model =
   if (not (String.isEmpty model.contents)) then
     div [class "section box"]
-      [ div [class ""] 
+      [ div [class ""]
         [ toMarkDown model.contents ]
       ]
-    else 
+    else
       div [class "section box"]
-        [ pre [] [text "MARKDOWN HERE"] ] 
+        [ pre [] [text "MARKDOWN HERE"] ]
 
 renderSlideShow : Model -> Html Msg
 renderSlideShow model =
-        div [] 
-        [ div [class "container"]
-          [ div [ class "columns"] 
+        div [class "section hero is-light is-bold"]
+        [ div []
+          [ div [ class "columns"]
             [ previousButton model
             , slideContentViewer model
             , nextButton model
@@ -195,19 +200,19 @@ slideContentViewer model =
 
       in
         div [class "column is-four-fifths"]
-          [ 
+          [
           --   text (toString slideShow)
           -- , div[] [text "----------------------"]
           -- , text (toString model)
                div [ class "hero box is-bold" ]
                   [
                   article [ class "media" ]
-                    [ div [class "content"] 
-                      [ currentSlide ] ]                    
+                    [ div [class "content"]
+                      [ currentSlide ] ]
                   ]
                 , div [ ]
                     [ restartButton model]
-                  
+
                 ]
 
 
@@ -225,7 +230,7 @@ toValue (slides, id) =
     Nothing
   else
     List.head slides
-    
+
 
 toHtml : Maybe ShowSlide -> String
 toHtml maybeSlide =
