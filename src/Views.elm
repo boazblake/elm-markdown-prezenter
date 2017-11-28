@@ -1,7 +1,7 @@
 module Views exposing (..)
 
 
-import Html exposing (Html, article, button, div, form, header, h1, i, input, p, text, textarea)
+import Html exposing (Html, article, button, div, form, header, h1, i, input, p, pre, text, textarea)
 import Html.Attributes exposing (class, placeholder, type_, value, width, max)
 import Html.Events exposing (onClick, onInput, onSubmit )
 import Markdown
@@ -39,7 +39,7 @@ renderSlidePickerPage model =
   div [class "container is-fluid"]
     [ body model
     , contentViewer model
-    -- , p [] [text (toString model)]
+    , p [] [text (toString model)]
     ]
 
 
@@ -158,11 +158,12 @@ contentViewer : Model -> Html Msg
 contentViewer model =
   if (not (String.isEmpty model.contents)) then
     div [class "section box"]
-      [ div [class "content"] 
-        [toMarkDown model.contents]]
+      [ div [class ""] 
+        [ toMarkDown model.contents ]
+      ]
     else 
       div [class "section box"]
-        [ ] 
+        [ pre [] [text "MARKDOWN HERE"] ] 
 
 renderSlideShow : Model -> Html Msg
 renderSlideShow model =
@@ -235,9 +236,8 @@ toHtml maybeSlide =
       "You need to pick a slide first"
 
 toMarkDown : String -> Html Msg
-toMarkDown message =
-  div [] 
-    <| Markdown.toHtml Nothing message
+toMarkDown content =
+    Markdown.toHtml [class "content"] content
 
 
 previousButton : Model -> Html Msg
