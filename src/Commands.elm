@@ -1,6 +1,6 @@
 module Commands exposing (..)
 
-
+import Array exposing (fromList, toList)
 import Http
 import RemoteData
 import Json.Decode as Decode

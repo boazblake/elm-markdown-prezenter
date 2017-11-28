@@ -39,7 +39,7 @@ renderSlidePickerPage model =
   div [class "container is-fluid"]
     [ body model
     , contentViewer model
-    -- , p [] [text (toString model)]
+    , p [] [text (toString model)]
     ]
 
 
