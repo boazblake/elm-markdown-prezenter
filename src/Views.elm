@@ -14,7 +14,7 @@ import Messages exposing (Msg(..))
 view : Model -> Html Msg
 view model =
 
-  div [class "container hero is-light is-bold is-fluid"]
+  div [class "container hero is-light is-bold"]
     [ title model
     , navbar model
     , if model.currentPage == "slidePicker" then
@@ -83,19 +83,31 @@ slidesCollection model =
 
 slide : Slide -> Html Msg
 slide slide =
-  article [ class "column is-2 box notification"]
-    [ div [class "section" ]
-      [ text slide.title]
-    , div []
-      [ button [ type_ "button", class "button", onClick (EditSlide slide)]
-          [ i  [ class "fa fa-edit" ]
-            []]
-    , button [ type_ "button", class "button", onClick (AddSlideToShow slide)]
-          [ i  [ class "fa fa-share-square-o" ]
-            []
-            ]
+  let
+    isEditing  = 
+      if slide.isEditing then
+        "is-info"
+      else
+        ""
+    isSelected  =
+      if slide.isSelected then
+        "is-selected"
+      else
+        ""
+  in
+    article [ class "column is-2 box notification"]
+      [ div [class "section" ]
+        [ text slide.title]
+      , div []
+        [ button [ type_ "button", class ("button "++ isEditing), onClick (EditSlide slide)]
+            [ i  [ class "fa fa-edit" ]
+              []]
+      , button [ type_ "button", class ("button " ++ isSelected), onClick (AddSlideToShow slide)]
+            [ i  [ class "fa fa-share-square-o" ]
+              []
+              ]
+        ]
       ]
-    ]
 
 
 slideForm : Model -> Html Msg
@@ -137,7 +149,7 @@ titleInput model =
               , type_ "text"
               , placeholder "Add/Edit Slide Title ..."
               , onInput InputTitle
-              , value model.title
+              , value (String.trim model.title)
               ] []
           ]
         ]
@@ -236,7 +248,7 @@ toHtml : Maybe ShowSlide -> String
 toHtml maybeSlide =
   case maybeSlide of
     Just maybeSlide ->
-      maybeSlide.contents
+      (String.trim maybeSlide.contents)
     Nothing ->
       "You need to pick a slide first"
 

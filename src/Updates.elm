@@ -144,8 +144,12 @@ addSlideToShow model slide =
     isUnique x xs =
       List.filter(\s -> s.slideId == x.slideId) xs
 
+    updatedSlideShow =
+      List.isEmpty (isUnique newShowSlide model.showSlides) 
+
   in
-    if ( List.isEmpty (isUnique newShowSlide model.showSlides) ) then
+
+    if updatedSlideShow then
       (
         { model
         | showSlides = newShowSlide :: model.showSlides
@@ -168,32 +172,36 @@ save model =
 edit : Model -> Int -> (Model, Cmd Msg)
 edit model id =
   let
-    newSlides =
-      List.map
-        (\slide ->
-          if slide.id == id then
-    Debug.log "editing slides?"
+    updateSlideById slide =
+      if slide.id == id then
+        Debug.log "editing slides?"
 
+        { slide
+          | title = model.title
+          , contents = model.contents
+          , isEditing = True
+        }
+
+      else 
+        { slide
+          | isEditing = False
+        }
+
+
+    updateSlideShowBySlideId slide =
+          if slide.slideId == id then
             { slide
               | title = model.title
               , contents = model.contents
             }
-          else slide
-        )
-          model.slides
+          else
+            slide
+
+    newSlides =
+      List.map(updateSlideById)model.slides
 
     newSlideShow =
-      List.map
-        (\slideShow ->
-          if slideShow.slideId == id then
-            { slideShow
-              | title = model.title
-              , contents = model.contents
-            }
-          else
-            slideShow
-        )
-        model.showSlides
+      List.map(updateSlideShowBySlideId) model.showSlides
   in
       (
         { model
@@ -211,7 +219,7 @@ add model =
   let
     slide =
     -- Slide <id> <title> <contents>
-    Slide (List.length model.slides) model.title model.contents
+    Slide (List.length model.slides) model.title model.contents False False
 
     newSlides =
     Debug.log "adding slides?"
