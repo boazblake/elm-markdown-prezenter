@@ -65,12 +65,12 @@ update msg model =
       showAnotherSlide direction model
 
     OnSlideSave (Ok slides) ->
-     ( Debug.log"SUCCESS"
-      updateSlides model slides )
+     ( Debug.log"slide saved"
+      <| updateSlides model slides )
 
     OnSlideSave (Err err) ->
-      ( Debug.log"ERROR"
-      ( model, Cmd.none ) )
+      ( Debug.log"slide ERROR"
+      <| model, Cmd.none )
 
     _ ->
       ( model, Cmd.none )
@@ -146,7 +146,8 @@ addSlideToShow model slide =
 
   in
     if 
-    ( List.isEmpty (isUnique newShowSlide model.showSlides) ) then
+      List.isEmpty (model.showSlides |> isUnique newShowSlide )
+    then
       (
         { model
         | showSlides = newShowSlide :: model.showSlides
