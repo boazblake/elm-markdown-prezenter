@@ -1,5 +1,8 @@
 module Views exposing (..)
 
+import Bulma.CDN exposing (stylesheet)
+
+
 
 import Html exposing (Html, a, nav, article, button, div, form, header, h1, i, input, p, pre, text, textarea)
 import Html.Attributes exposing (class, placeholder, type_, value, width, max, style)
@@ -13,8 +16,12 @@ import Messages exposing (Msg(..))
 -- VIEW
 view : Model -> Html Msg
 view model =
+  div [ ]
+  [stylesheet, page model]
 
-  div [class "container hero is-light is-bold is-fluid"]
+page: Model -> Html Msg
+page model =
+  div [class "section is-light is-bold"]
     [ title model
     , navbar model
     , if model.currentPage == "slidePicker" then
@@ -27,9 +34,9 @@ view model =
 
 navbar : Model -> Html Msg
 navbar model =
-  nav [class "navbar hero is-primary is-bold"]
-      [ div [ class "navbar-menu"]
-        [ div [class "navbar-start"]
+  nav [ class "navbar"  ]
+      [ nav [ class "navbar-menu"]
+        [ nav [class "navbar-start"]
             [  a [class "navbar-item",  onClick (SwitchView "slidePicker")]
                 [ text "PICK SLIDES" ]
             , a [class "navbar-item",  onClick (SwitchView "slideViewer")]

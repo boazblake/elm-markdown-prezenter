@@ -18,12 +18,10 @@ update msg model =
       ({ model | title = title }, Cmd.none)
 
     InputContents content ->
-      (
-        { model
+      ( { model
         | contents = content
         }
-        , Cmd.none
-      )
+        , Cmd.none )
 
     Cancel ->
      ( { model
@@ -34,7 +32,15 @@ update msg model =
       , Cmd.none)
 
     Save ->
-      if (String.isEmpty model.title || String.isEmpty model.contents) then
+      let
+          emptyTitle =
+            String.isEmpty model.title
+          
+          emptyContents =
+            String.isEmpty model.contents
+      in
+          
+      if emptyTitle || emptyContents then
         (model, Cmd.none)
       else
         save model
@@ -44,65 +50,55 @@ update msg model =
 
 
     EditSlide slide ->
-      (
-        { model
+      ( { model
         | title = slide.title
         , contents = slide.contents
         , slideId = Just slide.id
-        }
-        , Cmd.none
-      )
+        } , Cmd.none )
 
     SwitchView page ->
-      ({ model
+      ( { model
         | currentPage = page
-      }, Cmd.none)
+      }, Cmd.none )
 
     ShowAnotherSlide direction ->
       showAnotherSlide direction model
 
     OnSlideSave (Ok slides) ->
      ( Debug.log"SUCCESS"
-      updateSlides model slides)
+      updateSlides model slides )
 
     OnSlideSave (Err err) ->
-      (Debug.log"ERROR"
-      (model, Cmd.none))
+      ( Debug.log"ERROR"
+      ( model, Cmd.none ) )
 
     _ ->
-      (model, Cmd.none)
+      ( model, Cmd.none )
 
 
 updateSlides : Model -> List Slide -> (Model, Cmd Msg)
 updateSlides model fromDbSlides =
+  Debug.log "dbslides?"
   ( { model
         | slides = fromDbSlides
-    }
-    , Cmd.none
-  )
+    } , Cmd.none )
 
 parseSlides :  Model -> WebData (List Slide) -> (Model, Cmd Msg)
 parseSlides model maybeModel =
   case maybeModel of
     RemoteData.NotAsked ->
-      (model, Cmd.none)
+      ( model, Cmd.none )
 
     RemoteData.Loading ->
-      (model, Cmd.none)
+      ( model, Cmd.none )
 
     RemoteData.Success dbSlides ->
-      (
-        { model
+      ( { model
           | slides = dbSlides
-        }
-        , Cmd.none
-      )
+        } , Cmd.none )
 
     RemoteData.Failure error ->
-      (
-        model
-        , Cmd.none
-      )
+      ( model, Cmd.none )
 
 
 showAnotherSlide : String -> Model -> (Model, Cmd Msg)
@@ -110,51 +106,54 @@ showAnotherSlide direction model =
   case direction of
     "+" ->
       if model.currentSlideId == ( List.length model.showSlides - 1)  then
-        (model, Cmd.none)
+        ( model, Cmd.none )
       else
-        ({ model
+        ( { model
             | currentSlideId = model.currentSlideId + 1
         }
-        , Cmd.none)
+        , Cmd.none )
 
     "-" ->
       if model.currentSlideId == 0 then
-        (model, Cmd.none)
+        ( model, Cmd.none )
       else
-        ({ model
+        ( { model
             | currentSlideId = model.currentSlideId - 1
-        }, Cmd.none)
+        }, Cmd.none )
 
     "restart" ->
-          ({ model
+        ( { model
             | currentSlideId = 0
-          }, Cmd.none)
+        } , Cmd.none )
 
     _ ->
-      (model, Cmd.none)
+        ( model, Cmd.none )
 
 
 addSlideToShow : Model -> Slide -> (Model, Cmd Msg)
 addSlideToShow model slide =
 
   let
+    showSlideId =
+      model.showSlides
+        |> List.length 
+
     newShowSlide =
-      ShowSlide (List.length model.showSlides) slide.id slide.title slide.contents
+      ShowSlide showSlideId slide.id slide.title slide.contents
 
     isUnique x xs =
       List.filter(\s -> s.slideId == x.slideId) xs
 
   in
-    if ( List.isEmpty (isUnique newShowSlide model.showSlides) ) then
+    if 
+    ( List.isEmpty (isUnique newShowSlide model.showSlides) ) then
       (
         { model
         | showSlides = newShowSlide :: model.showSlides
-        }
-        , Cmd.none
-      )
+        } , Cmd.none )
 
     else
-      (model, Cmd.none)
+      ( model, Cmd.none )
 
 
 save : Model -> (Model, Cmd Msg)
@@ -168,12 +167,13 @@ save model =
 edit : Model -> Int -> (Model, Cmd Msg)
 edit model id =
   let
+    compareSlideById slide id =
+      slide.id == id 
+
     newSlides =
       List.map
         (\slide ->
-          if slide.id == id then
-    Debug.log "editing slides?"
-
+          if compareSlideById slide id then
             { slide
               | title = model.title
               , contents = model.contents
@@ -195,33 +195,31 @@ edit model id =
         )
         model.showSlides
   in
-      (
-        { model
-        | slides = newSlides
-        , showSlides = newSlideShow
-        , title = ""
-        , contents = ""
-        , slideId = Nothing
-        }
-        , saveSlidesCmd newSlides
-      )
+    ( { model
+      | slides = newSlides
+      , showSlides = newSlideShow
+      , title = ""
+      , contents = ""
+      , slideId = Nothing
+      } , saveSlidesCmd newSlides )
 
 add : Model -> (Model, Cmd Msg)
 add model =
   let
-    slide =
+    slideId =
+      model.slides
+        |>  List.length
+
     -- Slide <id> <title> <contents>
-    Slide (List.length model.slides) model.title model.contents
+    slide =
+    Slide slideId model.title model.contents
 
     newSlides =
     Debug.log "adding slides?"
       slide :: model.slides
   in
-    (
-      { model
+    ( { model
       | slides = newSlides
       , title = ""
       , contents = ""
-      }
-      , saveSlidesCmd newSlides
-    )
+      } , saveSlidesCmd newSlides )
