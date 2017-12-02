@@ -24,7 +24,7 @@ type alias Slide =
   }
 
 type alias Slides =
-  { slides : List Slide}
+  List Slide
 
 type alias ShowSlide =
   { id : Int

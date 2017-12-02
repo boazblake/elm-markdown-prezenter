@@ -24,12 +24,13 @@ page model =
   div [class "section is-light is-bold"]
     [ title model
     , navbar model
-    , if model.currentPage == "slidePicker" then
-      renderSlidePickerPage model
-    else if model.currentPage == "slideViewer" then
-      renderSlideShow model
-    else
-      renderSlidePickerPage model
+    , case model.currentPage of
+        "slidePicker" ->
+          renderSlidePickerPage model
+        "slideViewer" ->
+          renderSlideShow model
+        _->
+          renderSlidePickerPage model
     ]
 
 navbar : Model -> Html Msg
