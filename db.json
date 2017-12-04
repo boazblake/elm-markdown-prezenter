@@ -2,31 +2,42 @@
   "slides": [
     {
       "id": 5,
+      "isEditing": false,
       "title": "My code",
-      "contents": "here is some code:\n\n```elm type alias Model =\n  { slides : List Slide\n  , title : String\n  , contents : String\n  , slideId : Maybe Int\n  , currentSlide: Maybe ShowSlide\n  , currentSlideId: Int\n  , showSlides : List ShowSlide\n  , dbSlides : WebData (List Slide)\n  , currentPage : String\n  }\n\ntype alias Slide =\n  { id : Int\n  , title : String\n  , contents : String\n  }\n\ntype alias Slides =\n  { slides : List Slide}\n\ntype alias ShowSlide =\n  { id : Int\n  , slideId : Int\n  , title : String\n  , contents : String\n  }\n\ninitModel : Model\ninitModel =\n  { slides = []\n  , title = \"\"\n  , contents = \"\"\n  , slideId = Nothing\n  , currentSlide = Nothing\n  , currentSlideId = 0\n  , showSlides = []\n  , dbSlides = RemoteData.Loading\n  , currentPage = \"slidePicker\"\n  }\n```"
+      "contents":
+        "here is some code:\n\n```elm type alias Model =\n  { slides : List Slide\n  , title : String\n  , contents : String\n  , slideId : Maybe Int\n  , currentSlide: Maybe ShowSlide\n  , currentSlideId: Int\n  , showSlides : List ShowSlide\n  , dbSlides : WebData (List Slide)\n  , currentPage : String\n  }\n\ntype alias Slide =\n  { id : Int\n  , title : String\n  , contents : String\n  }\n\ntype alias Slides =\n  { slides : List Slide}\n\ntype alias ShowSlide =\n  { id : Int\n  , slideId : Int\n  , title : String\n  , contents : String\n  }\n\ninitModel : Model\ninitModel =\n  { slides = []\n  , title = \"\"\n  , contents = \"\"\n  , slideId = Nothing\n  , currentSlide = Nothing\n  , currentSlideId = 0\n  , showSlides = []\n  , dbSlides = RemoteData.Loading\n  , currentPage = \"slidePicker\"\n  }\n```"
     },
     {
       "id": 4,
+      "isEditing": false,
       "title": "styles",
-      "contents": "You can create emphasis using the * or _ characters. Double emphasis is strong emphasis.\n\n*Emphasis*, **strong emphasis**, ***both***\n\n_Emphasis_, __strong emphasis__, ___both___\n"
+      "contents":
+        "You can create emphasis using the * or _ characters. Double emphasis is strong emphasis.\n\n*Emphasis*, **strong emphasis**, ***both***\n\n_Emphasis_, __strong emphasis__, ___both___\n"
     },
     {
       "id": 3,
+      "isEditing": false,
       "title": "Lists",
-      "contents": "You can make a list by preceding one or more lines of text with - or *.\n\n- Unordered list\n  * Nested unordered list\n5. Ordered list starting at 5\n    1) Nested ordered list starting at 1"
+      "contents":
+        "You can make a list by preceding one or more lines of text with - or *.\n\n- Unordered list\n  * Nested unordered list\n5. Ordered list starting at 5\n    1) Nested ordered list starting at 1"
     },
     {
       "id": 2,
+      "isEditing": false,
       "title": "link syntax",
-      "contents": "it can understand all types of syntax\n```\nDo you know the Elm [slack channel](https://elmlang.slack.com/ \"title\")?\n\n[slackLink]: https://elmlang.slack.com/ 'title'\n\nDo you know the Elm [slack channel][slackLink]?\n\n[slack channel]: https://elmlang.slack.com/ (title)\n\nDo you know the Elm [slack channel]?\n\n\nAutolink: <http://elm-lang.org/>\n\nEmail link: <google@google.com>\n```\nDo you know the Elm [slack channel](https://elmlang.slack.com/ \"title\")?\n\n[slackLink]: https://elmlang.slack.com/ 'title'\n\nDo you know the Elm [slack channel][slackLink]?\n\n[slack channel]: https://elmlang.slack.com/ (title)\n\nDo you know the Elm [slack channel]?\n\nAutolink: <http://elm-lang.org/>\n\nEmail link: <google@google.com>"
+      "contents":
+        "it can understand all types of syntax\n```\nDo you know the Elm [slack channel](https://elmlang.slack.com/ \"title\")?\n\n[slackLink]: https://elmlang.slack.com/ 'title'\n\nDo you know the Elm [slack channel][slackLink]?\n\n[slack channel]: https://elmlang.slack.com/ (title)\n\nDo you know the Elm [slack channel]?\n\n\nAutolink: <http://elm-lang.org/>\n\nEmail link: <google@google.com>\n```\nDo you know the Elm [slack channel](https://elmlang.slack.com/ \"title\")?\n\n[slackLink]: https://elmlang.slack.com/ 'title'\n\nDo you know the Elm [slack channel][slackLink]?\n\n[slack channel]: https://elmlang.slack.com/ (title)\n\nDo you know the Elm [slack channel]?\n\nAutolink: <http://elm-lang.org/>\n\nEmail link: <google@google.com>"
     },
     {
       "id": 1,
+      "isEditing": false,
       "title": "code markdown",
-      "contents": "this app can do all types of markdown: <br><br>\n> Block quotes\\\n\\\nExample of `inline code`\n\\\n\\\nExample of block code\n \n```optionalLang\nExample of block code with defined language\n```"
+      "contents":
+        "this app can do all types of markdown: <br><br>\n> Block quotes\\\n\\\nExample of `inline code`\n\\\n\\\nExample of block code\n \n```optionalLang\nExample of block code with defined language\n```"
     },
     {
       "id": 0,
+      "isEditing": false,
       "title": "Introduction",
       "contents": "This is a `markdown` presentation app built in <br>\n![Elm](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/100px-Elm_logo.svg.png)"
     }

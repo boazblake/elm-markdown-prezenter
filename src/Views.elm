@@ -85,17 +85,17 @@ slidesCollection : Model -> Html Msg
 slidesCollection model =
   model.slides
     |> List.sortBy .title
-    |> List.map slide
-    |> div [ class "columns is-variable is-3 is-multiline"]
+    |> List.map slideCard
+    |> div [ class "columns tile is-ancestor is-variable is-multiline"]
         -- (List.map slide model.slides)
 
-slide : Slide -> Html Msg
-slide slide =
-  article [ class "column is-2 box notification"]
-    [ div [class "section" ]
+slideCard : Slide -> Html Msg
+slideCard slide =
+  article [ class "column tile is-parent is-2 is-vertical box notification"]
+    [ div [class "article tile is-child" ]
       [ text slide.title]
-    , div []
-      [ button [ type_ "button", class "button", onClick (EditSlide slide)]
+    , div [class "article tile is-parent"]
+      [ button [ type_ "button", class <| "button " ++ isEditing slide, onClick (EditSlide slide)]
           [ i  [ class "fa fa-edit" ]
             []]
     , button [ type_ "button", class "button", onClick (AddSlideToShow slide)]
@@ -105,6 +105,13 @@ slide slide =
       ]
     ]
 
+isEditing : Slide -> String
+isEditing slide =
+  case slide.isEditing of
+    True ->
+      "is-info"
+    False ->
+      ""
 
 slideForm : Model -> Html Msg
 slideForm model =
@@ -135,7 +142,7 @@ titleInput : Model -> Html Msg
 titleInput model =
   div [ class "field is-normal"]
     [
-      div [ class "field is-horizontal"]
+      div [ class "field label"]
         [ text "Slide Title"]
     , div [ class "field"]
       [ div [ class "field-body"]
@@ -177,6 +184,7 @@ contentViewer model =
     else
       div [class "section box"]
         [ pre [] [text "MARKDOWN HERE"] ]
+
 
 renderSlideShow : Model -> Html Msg
 renderSlideShow model =

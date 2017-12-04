@@ -48,13 +48,8 @@ update msg model =
     AddSlideToShow slide ->
       addSlideToShow model slide
 
-
     EditSlide slide ->
-      ( { model
-        | title = slide.title
-        , contents = slide.contents
-        , slideId = Just slide.id
-        } , Cmd.none )
+      editSlide model slide
 
     SwitchView page ->
       ( { model
@@ -75,6 +70,18 @@ update msg model =
     _ ->
       ( model, Cmd.none )
 
+
+editSlide : Model -> Slide -> (Model, Cmd Msg)
+editSlide model slide =
+  ( { model
+  | title = slide.title
+  , contents = slide.contents
+  , slideId = Just slide.id
+  } , Cmd.none )
+
+toggleisEditing: Slide -> Slide
+toggleisEditing slide =
+  { slide | isEditing = (not slide.isEditing)}
 
 updateSlides : Model -> List Slide -> (Model, Cmd Msg)
 updateSlides model fromDbSlides =
@@ -213,7 +220,7 @@ add model =
 
     -- Slide <id> <title> <contents>
     slide =
-    Slide slideId model.title model.contents
+    Slide slideId model.title model.contents False
 
     newSlides =
     Debug.log "adding slides?"

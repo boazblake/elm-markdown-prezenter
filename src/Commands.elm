@@ -31,6 +31,7 @@ slideDecoder =
     |> required "id" Decode.int
     |> required "title" Decode.string
     |> required "contents" Decode.string
+    |> required "isEditing" Decode.bool
 
 
 saveSlidesRequest : List Slide -> Http.Request (List Slide)
@@ -67,6 +68,7 @@ slideEncoder slide =
       [ ("id", Encode.int slide.id)
       , ("title", Encode.string slide.title)
       , ("contents", Encode.string slide.contents)
+      , ("isEditing", Encode.bool slide.isEditing)
       ]
   in
     Encode.object attributes
