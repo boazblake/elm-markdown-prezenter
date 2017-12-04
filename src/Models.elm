@@ -21,6 +21,7 @@ type alias Slide =
   { id : Int
   , title : String
   , contents : String
+  , isEditing : Bool
   }
 
 type alias Slides =
