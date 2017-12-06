@@ -13,7 +13,7 @@ type alias Model =
   , currentSlide: Maybe ShowSlide
   , currentSlideId: Int
   , showSlides : List ShowSlide
-  , dbSlides : WebData (List Slide)
+  , dbSlides : WebData (Slides)
   , currentPage : String
   }
 

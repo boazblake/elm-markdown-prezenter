@@ -223,8 +223,8 @@ add model =
     Slide slideId model.title model.contents False
 
     newSlides =
-    Debug.log "adding slides?"
-      slide :: model.slides
+      Debug.log "adding slides?"
+        slide :: model.slides
   in
     ( { model
       | slides = newSlides

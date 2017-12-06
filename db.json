@@ -5,7 +5,7 @@
       "isEditing": false,
       "title": "My code",
       "contents":
-        "here is some code:\n\n```elm type alias Model =\n  { slides : List Slide\n  , title : String\n  , contents : String\n  , slideId : Maybe Int\n  , currentSlide: Maybe ShowSlide\n  , currentSlideId: Int\n  , showSlides : List ShowSlide\n  , dbSlides : WebData (List Slide)\n  , currentPage : String\n  }\n\ntype alias Slide =\n  { id : Int\n  , title : String\n  , contents : String\n  }\n\ntype alias Slides =\n  { slides : List Slide}\n\ntype alias ShowSlide =\n  { id : Int\n  , slideId : Int\n  , title : String\n  , contents : String\n  }\n\ninitModel : Model\ninitModel =\n  { slides = []\n  , title = \"\"\n  , contents = \"\"\n  , slideId = Nothing\n  , currentSlide = Nothing\n  , currentSlideId = 0\n  , showSlides = []\n  , dbSlides = RemoteData.Loading\n  , currentPage = \"slidePicker\"\n  }\n```"
+        "here is some code:\n\n```elm\n\ntype alias Model =\n  { slides : List Slide\n  , title : String\n  , contents : String\n  , slideId : Maybe Int\n  , currentSlide: Maybe ShowSlide\n  , currentSlideId: Int\n  , showSlides : List ShowSlide\n  , dbSlides : WebData (List Slide)\n  , currentPage : String\n  }\n\ntype alias Slide =\n  { id : Int\n  , title : String\n  , contents : String\n  }\n\ntype alias Slides =\n  { slides : List Slide}\n\ntype alias ShowSlide =\n  { id : Int\n  , slideId : Int\n  , title : String\n  , contents : String\n  }\n\ninitModel : Model\ninitModel =\n  { slides = []\n  , title = \"\"\n  , contents = \"\"\n  , slideId = Nothing\n  , currentSlide = Nothing\n  , currentSlideId = 0\n  , showSlides = []\n  , dbSlides = RemoteData.Loading\n  , currentPage = \"slidePicker\"\n  }\n```"
     },
     {
       "id": 4,

@@ -19,5 +19,5 @@ type Msg
   | SwitchView String
   | ToPickSlides
   | ShowAnotherSlide String
-  | OnInitialLoad (WebData(List(Slide)))
-  | OnSlideSave (Result Http.Error (List Slide))
+  | OnInitialLoad ( WebData (List Slide) )
+  | OnSlideSave ( Result Http.Error (List Slide) )
