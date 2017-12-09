@@ -1,46 +1,116 @@
 {
   "slides": [
     {
-      "id": 5,
-      "isEditing": false,
-      "title": "My code",
+      "id": 15,
+      "title": "takeaways",
       "contents":
-        "here is some code:\n\n```elm\n\ntype alias Model =\n  { slides : List Slide\n  , title : String\n  , contents : String\n  , slideId : Maybe Int\n  , currentSlide: Maybe ShowSlide\n  , currentSlideId: Int\n  , showSlides : List ShowSlide\n  , dbSlides : WebData (List Slide)\n  , currentPage : String\n  }\n\ntype alias Slide =\n  { id : Int\n  , title : String\n  , contents : String\n  }\n\ntype alias Slides =\n  { slides : List Slide}\n\ntype alias ShowSlide =\n  { id : Int\n  , slideId : Int\n  , title : String\n  , contents : String\n  }\n\ninitModel : Model\ninitModel =\n  { slides = []\n  , title = \"\"\n  , contents = \"\"\n  , slideId = Nothing\n  , currentSlide = Nothing\n  , currentSlideId = 0\n  , showSlides = []\n  , dbSlides = RemoteData.Loading\n  , currentPage = \"slidePicker\"\n  }\n```"
+        "# TAKEAWAYS\n![elm-app-heart](https://marcosh.github.io/presentations/2016/10/28/img/elm_heart.png)",
+      "isEditing": false
+    },
+    {
+      "id": 14,
+      "title": "challanges",
+      "contents":
+        "# some of the many challanges ...\n1. saving to db\n2. managing state",
+      "isEditing": false
+    },
+    {
+      "id": 13,
+      "title": "elm-app view",
+      "contents":
+        "# code highlight --view\n```elm\ntitle : Model -> Html Msg\ntitle model =\n  div [ class \"hero is-primary is-bold\"  ]\n    [ div [ class \"hero-body\"  ]\n      [ header [class \"container\"]\n        [ h1 [class \"title is-1 is-spaced\", style[(\"text-align\", \"center\")]] [text \"PREZENTER\"]\n        ]\n      ]\n    ]\n```",
+      "isEditing": false
+    },
+    {
+      "id": 12,
+      "title": "elm-app update",
+      "contents":
+        "# code highlight  -- adding a new slide to presentation\n```elm\naddSlideToShow : Model -> Slide -> (Model, Cmd Msg)\naddSlideToShow model slide =\n\n  let\n    showSlideId =\n      model.showSlides\n        |> List.length \n\n    newShowSlide =\n      ShowSlide showSlideId slide.id slide.title slide.contents\n\n    isUnique x xs =\n      List.filter(\\s -> s.slideId == x.slideId) xs\n\n  in\n    if \n      List.isEmpty (model.showSlides |> isUnique newShowSlide )\n    then\n      (\n        { model\n        | showSlides = newShowSlide :: model.showSlides\n        } , Cmd.none )\n\n    else\n      ( model, Cmd.none )\n```",
+      "isEditing": false
+    },
+    {
+      "id": 11,
+      "title": "elm-app update",
+      "contents":
+        "# code highlight --  changing slides \n```elm\nshowAnotherSlide : String -> Model -> (Model, Cmd Msg)\nshowAnotherSlide direction model =\n  case direction of\n    \"+\" ->\n      if model.currentSlideId == ( List.length model.showSlides - 1)  then\n        ( model, Cmd.none )\n      else\n        ( { model\n            | currentSlideId = model.currentSlideId + 1\n        }\n        , Cmd.none )\n\n    \"-\" ->\n      if model.currentSlideId == 0 then\n        ( model, Cmd.none )\n      else\n        ( { model\n            | currentSlideId = model.currentSlideId - 1\n        }, Cmd.none )\n\n    \"restart\" ->\n        ( { model\n            | currentSlideId = 0\n        } , Cmd.none )\n\n    _ ->\n        ( model, Cmd.none )\n```",
+      "isEditing": false
+    },
+    {
+      "id": 10,
+      "title": "elm-app messaging",
+      "contents":
+        "# app messaging\n```elm\ntype Msg\n  = EditSlide Slide\n  | AddSlideToShow Slide\n  | InputTitle String\n  | InputContents String\n  | Save\n  | Cancel\n  | DeleteShow ShowSlide\n  | SwitchView String\n  | ToPickSlides\n  | ShowAnotherSlide String\n  | OnInitialLoad ( WebData (List Slide) )\n  | OnSlideSave ( Result Http.Error (List Slide) )\n```",
+      "isEditing": false
+    },
+    {
+      "id": 9,
+      "title": "app architecture",
+      "contents":
+        "# App architecture\n```elm\n-- MAIN\nmain : Program Never Model Msg\nmain =\n  Html.program\n    { init = (initModel, fetchSlides)\n    , update = update\n    , subscriptions = subscriptions\n    , view = view\n    }\n```",
+      "isEditing": false
+    },
+    {
+      "id": 8,
+      "title": "tooling",
+      "contents":
+        "# NodeJS Tooling\n`yarn : to install dependencies `\n```\n  \"dependencies\": {\n    \"foreman\": \"2.0.0\", // to start up api and client at same time\n    \"json-server\": \"0.9.5\" // quick api mock up\n  }\n```\n## Elm-app-create\nquickly start up a elm skeleton",
+      "isEditing": false
+    },
+    {
+      "id": 7,
+      "title": "elm commands",
+      "contents":
+        "# elm commands\n![elm-commands](http://elmprogramming.com/images/commands/reload-state.png)\n\n# elm commands lifecycle 1\n![elm-command-lifecycle-1](http://elmprogramming.com/images/commands/model-view-update-commands.png)\n\n# elm command lifecycle 2\n![elm-command-lifecylce-2](http://elmprogramming.com/images/commands/elm-runtime-mvu-commands.png)",
+      "isEditing": false
+    },
+    {
+      "id": 6,
+      "title": "elm-node interaction",
+      "contents":
+        "# elm - nodejs interaction\n![elm-nodejs-interaction](http://elmprogramming.com/images/elm-architecture/elm-runtime.png)",
+      "isEditing": false
+    },
+    {
+      "id": 5,
+      "title": "virtual dom",
+      "contents":
+        "# virtual dom\n![virtual-dom](http://elmprogramming.com/images/virtual-dom/elm-runtime-virtual-dom.png)",
+      "isEditing": false
     },
     {
       "id": 4,
-      "isEditing": false,
-      "title": "styles",
+      "title": "elm lifecycle",
       "contents":
-        "You can create emphasis using the * or _ characters. Double emphasis is strong emphasis.\n\n*Emphasis*, **strong emphasis**, ***both***\n\n_Emphasis_, __strong emphasis__, ___both___\n"
+        "# elm lifecycle\n![elm-lifecycle](http://elmprogramming.com/images/elm-architecture/model-view-update-interaction-1.png)",
+      "isEditing": false
     },
     {
       "id": 3,
-      "isEditing": false,
-      "title": "Lists",
+      "title": "elm framework",
       "contents":
-        "You can make a list by preceding one or more lines of text with - or *.\n\n- Unordered list\n  * Nested unordered list\n5. Ordered list starting at 5\n    1) Nested ordered list starting at 1"
+        "# elm framework\n![elm-framework](http://elmprogramming.com/images/elm-architecture/model-view-update.png)",
+      "isEditing": false
     },
     {
       "id": 2,
-      "isEditing": false,
-      "title": "link syntax",
+      "title": "elm runtime",
       "contents":
-        "it can understand all types of syntax\n```\nDo you know the Elm [slack channel](https://elmlang.slack.com/ \"title\")?\n\n[slackLink]: https://elmlang.slack.com/ 'title'\n\nDo you know the Elm [slack channel][slackLink]?\n\n[slack channel]: https://elmlang.slack.com/ (title)\n\nDo you know the Elm [slack channel]?\n\n\nAutolink: <http://elm-lang.org/>\n\nEmail link: <google@google.com>\n```\nDo you know the Elm [slack channel](https://elmlang.slack.com/ \"title\")?\n\n[slackLink]: https://elmlang.slack.com/ 'title'\n\nDo you know the Elm [slack channel][slackLink]?\n\n[slack channel]: https://elmlang.slack.com/ (title)\n\nDo you know the Elm [slack channel]?\n\nAutolink: <http://elm-lang.org/>\n\nEmail link: <google@google.com>"
+        "# elm runtime\n![elm-runtime](http://elmprogramming.com/images/elm-intro/elm-dirty-secret.png)",
+      "isEditing": false
     },
     {
       "id": 1,
-      "isEditing": false,
-      "title": "code markdown",
+      "title": "elm overview",
       "contents":
-        "this app can do all types of markdown: <br><br>\n> Block quotes\\\n\\\nExample of `inline code`\n\\\n\\\nExample of block code\n \n```optionalLang\nExample of block code with defined language\n```"
+        "# elm overview\n![elm](http://elmprogramming.com/images/elm-intro/elm-compiler.png)\n",
+      "isEditing": false
     },
     {
       "id": 0,
-      "isEditing": false,
-      "title": "Introduction",
+      "title": "defining features",
       "contents":
-        "This is a `markdown` presentation app built in <br>\n![Elm](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/100px-Elm_logo.svg.png)"
+        "# This app was built with\n### `Elm`\n![elm](https://frontendmasters.com/static-assets/workshops/thumbnails/elm.jpg)\n<h1 style=\"text-align:left;\">__&__</h1>\n### `nodejs`\n![nodejs](https://rishabh.io/tech/nodejs/img/nodejs.png)",
+      "isEditing": false
     }
   ]
 }

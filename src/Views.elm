@@ -2,21 +2,27 @@ module Views exposing (..)
 
 import Bulma.CDN exposing (stylesheet)
 
+import Html exposing (  Html, a, nav, article, button, div
+                      , form, header, h1, i, input, p, pre
+                      , text, textarea)
 
+import Html.Attributes exposing ( class, placeholder, type_
+                                , value, width, max, style)
 
-import Html exposing (Html, a, nav, article, button, div, form, header, h1, i, input, p, pre, text, textarea)
-import Html.Attributes exposing (class, placeholder, type_, value, width, max, style)
-import Html.Events exposing (onClick, onInput, onSubmit )
+import Html.Events exposing ( onClick, onInput, onSubmit )
+
 import Markdown
-import Models exposing (Model, Slide, ShowSlide)
-import Messages exposing (Msg(..))
+
+import Models exposing (  Model, Slide, ShowSlide )
+
+import Messages exposing (  Msg(..) )
 
 
 
 -- VIEW
 view : Model -> Html Msg
 view model =
-  div [ ]
+  div []
   [stylesheet, page model]
 
 page: Model -> Html Msg
