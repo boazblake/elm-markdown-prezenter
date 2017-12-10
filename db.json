@@ -4,7 +4,7 @@
       "id": 15,
       "title": "takeaways",
       "contents":
-        "# TAKEAWAYS\n![elm-app-heart](https://marcosh.github.io/presentations/2016/10/28/img/elm_heart.png)",
+        "# TAKEAWAYS\n## overall I ![elm-app-heart](https://marcosh.github.io/presentations/2016/10/28/img/elm_heart.png), \n## aside\nhow to start with fp is diff from OO ... need to first think about what you want to create and build the model up first. ",
       "isEditing": false
     },
     {
