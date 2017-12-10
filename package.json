@@ -2,7 +2,6 @@
   "name": "prezenter",
   "version": "1.0.0",
   "description": "markdown presentation app built with elm",
-  "homepage": "https://boazblake.github.io/elm-markdown-prezenter",
   "main": "index.js",
   "author": "Boaz Blake <boazblake@gmail.com>",
   "license": "MIT",
