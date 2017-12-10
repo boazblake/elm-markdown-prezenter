@@ -1,1 +1,0 @@
-Basic Markdown presentation app built with Elm
