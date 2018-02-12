@@ -28,7 +28,7 @@ slidesDecoder =
 slideDecoder : Decode.Decoder Slide
 slideDecoder =
   decode Slide
-    |> required "id" Decode.int
+    |> required "id" (Debug.log "slideDecoder" Decode.int)
     |> required "title" Decode.string
     |> required "contents" Decode.string
     |> required "isEditing" Decode.bool

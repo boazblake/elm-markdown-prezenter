@@ -1,0 +1,28 @@
+{
+  "slides": [
+    {
+      "id": 3,
+      "title": "Slide 4 Page Regions",
+      "contents": "# Page Header\n`<header></header>`\n![Page header](https://www.w3.org/WAI/tutorials/img/page-structure-header-28e521ee.png)\n\n# Page Footer\n`<footer></footer>`\n![footer](https://www.w3.org/WAI/tutorials/img/page-structure-footer-fbaedb8f.png)\n\n## If the `<footer>` or `<header>` are inside a `<article>` `<section>` they are not identified as belonging to the page - but to that section\n\n# Navigation\n`<nav></nav>`\n![nav](https://www.w3.org/WAI/tutorials/img/page-structure-navigation-529bca1f.png)\n\n# Main\n`<main></main>`\n![main](https://www.w3.org/WAI/tutorials/img/page-structure-main-7bc6392c.png)\n\n# Aside\n`<aside></aside>`\n![aside](https://www.w3.org/WAI/tutorials/img/page-structure-aside-6c081801.png)",
+      "isEditing": false
+    },
+    {
+      "id": 2,
+      "title": "Slide 3",
+      "contents": "# How to meet web accessibility guidelines\n* 508 USA, WWW consortium WCAG2\n\n# the 4 principles of web accessibility\n![pour wcag 2](http://www.d.umn.edu/itss/news/2016/images/pour_bigger.png)",
+      "isEditing": false
+    },
+    {
+      "id": 1,
+      "title": "Slide 2",
+      "contents": "# WHY SHOULD I CARE?\n* chris mcclean & client retention\n* Increased usability,\n* Increased SEO,\n* Future proof yourself.\n* its the law \n  - protect from lawsuits\n  - get Gov contracts",
+      "isEditing": false
+    },
+    {
+      "id": 0,
+      "title": "Slide 1 - INTRO",
+      "contents": "# WEB ACCESSABILITY\nbased off plural sight tutorial [Web AccessAbility](https://app.pluralsight.com/player?name=web-accessibility-meeting-guidelines-m0&clip=0&course=web-accessibility-meeting-guidelines&author=gerard-cohen).\n<a href=\"https://ibb.co/h6Nvim\"><img src=\"https://preview.ibb.co/cq0RpR/Screen_Shot_2018_02_01_at_11_10_58_AM.png\" alt=\"Screen_Shot_2018_02_01_at_11_10_58_AM\" border=\"0\"></a>",
+      "isEditing": false
+    }
+  ]
+}

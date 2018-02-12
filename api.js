@@ -6,7 +6,7 @@ var server = jsonServer.create()
 // Set Default middlewares ( logger, static, cors and no-cache)
 server.use(jsonServer.defaults())
 
-var router = jsonServer.router('db.json')
+var router = jsonServer.router('./dbs/semantics.json')
 server.use(router)
 
 console.log('listening on 4000')

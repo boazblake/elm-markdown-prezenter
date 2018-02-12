@@ -57,7 +57,7 @@ renderSlidePickerPage : Model -> Html Msg
 renderSlidePickerPage model =
   div [class "container is-fluid"]
     [ body model
-    , contentViewer model
+    , slideShowSection model
     -- , p [] [text (toString model)]
     ]
 
@@ -77,7 +77,7 @@ body : Model -> Html Msg
 body model =
   div [ class "columns"]
     [ slideForm model
-    , slideShowSection model
+    , contentViewer model
     ]
 
 slideShowSection : Model -> Html Msg
@@ -183,12 +183,12 @@ textAreaInput model =
 contentViewer : Model -> Html Msg
 contentViewer model =
   if (not (String.isEmpty model.contents)) then
-    div [class "section box"]
+    div [class "section box column is-6"]
       [ div [class ""]
         [ toMarkDown model.contents ]
       ]
     else
-      div [class "section box"]
+      div [class "section box column is-6"]
         [ pre [] [text "MARKDOWN HERE"] ]
 
 
@@ -221,7 +221,7 @@ slideContentViewer model =
 
 
       in
-        div [class "column is-four-fifths"]
+        div [class "container"]
           [
           --   text (toString slideShow)
           -- , div[] [text "----------------------"]
