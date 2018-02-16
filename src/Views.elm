@@ -64,14 +64,23 @@ renderSlidePickerPage model =
 
 title : Model -> Html Msg
 title model =
-  div [ class "hero is-primary is-bold"  ]
-    [ div [ class "hero-body"  ]
-      [ header [class "container"]
-        [ h1 [class "title is-1 is-spaced", style[("text-align", "center")]] [text "PREZENTER"]
+  case model.currentPage of
+    "slideViewer" ->
+      div [ class "hero is-primary is-bold"  ]
+        [ div [ ]
+          [ header [class "container"]
+            [ h1 [class "title is-1 is-spaced", style[("text-align", "center")]] [text "PREZENTER"]
+            ]
+          ]
         ]
-      ]
-    ]
-
+    _ ->
+      div [ class "hero is-primary is-bold"  ]
+        [ div [ class "hero-body"  ]
+          [ header [class "container"]
+            [ h1 [class "title is-1 is-spaced", style[("text-align", "center")]] [text "PREZENTER"]
+            ]
+          ]
+        ]
 
 body : Model -> Html Msg
 body model =
