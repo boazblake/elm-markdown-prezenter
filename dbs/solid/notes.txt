@@ -1,0 +1,275 @@
+SOLID PRINCIPLES of Object Orientated Programing
+
+intro
+  Exciting times at Empyrean ~ building new applications ~ building new versions of exisiting applications
+  Have an appertunity to start how we mean to go on
+
+SLIDE 1 ==============================================================================================
+What goes wrong with software?
+-----------------------------
+Most software engineers don’t set out to create “bad designs”. Yet most software
+eventually degrades to the point where someone will declare the design to be unsound.
+Why does this happen? Was the design poor to begin with, or did the design actually
+degrade like a piece of rotten meat?
+***  Uncle Bob: http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod
+
+SLIDE 2 ==============================================================================================
+At the heart of this issue is our lack of a good working definition of “bad” design.
+***  Uncle Bob: http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod
+
+A piece of software that fulfills its requirements and yet
+  exhibits any or all
+   of the following three traits
+has a bad design.
+
+1. Rigidity -> It is hard to change. (because every change affects too many other parts of the system.)
+2. Fragility -> When you make a change, unexpected parts of the system break.
+3. Immobility -> It is hard to reuse in another application. (because it cannot be disentangled from the current application)
+
+How to solve?
+SLIDE 3 ==============================================================================================
+
+Computer Programming Paradigms
+===============================
+Object Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.
+OOP ranges from:
+  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel
+  * Languages designed mainly for OO programming: Java, C++, C#,
+  * Languages that are historically procedural languages: PHP Fortran, matlab
+
+Object Orientated Programing
+ Smalltalk, C++, C#
+Idea was to have data perfectly encapsulated as attributes of objects which would have the notion of "self/this"
+ and would be able to manipulate the data with private methods and communicate with other objects using public methods sending messages.
+
+SLIDE 4 ==============================================================================================
+Criticisms of OOP
+Luca Cardelli has claimed that:
+   OOP code is "intrinsically less efficient" than procedural code,
+  that OOP can take longer to compile, and
+  that OOP languages have "extremely poor modularity properties with respect to class extension and modification",
+  and tend to be extremely complex.
+
+  ***The problem with object-oriented languages is they've got all this implicit
+   environment that they carry around with them.
+   You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. 
+      Joe Armstrong, the principal inventor of Erlang:
+
+
+SLIDE 5 ==============================================================================================
+Rebuttel
+  *** Object-oriented programming is more than just classes and objects;
+  it's a whole programming paradigm based around objects (data structures)
+  that contain data fields and methods.
+  It is essential to understand this;
+  using classes to organize a bunch of unrelated methods together is not object orientation.
+      Junade Ali, Mastering PHP Design Patterns
+
+  ***Douglas Crockford:
+    "you make prototype objects, and then … make new instances.
+    Objects are mutable in JavaScript, so we can augment the new instances, giving them new fields and methods.
+    These can then act as prototypes for even newer objects.
+    We don't need classes to make lots of similar objects… Objects inherit from objects.
+    What could be more object oriented than that?"
+
+
+SLIDE 6 ==============================================================================================
+Classical vs prototypical inheritance
+
+Prototype object oriented programming uses generalized objects, which can be cloned and extended.
+Class-based paradigm, uses generalized Classes which are extended when used by another class.
+
+              PROTOTYPICAL INHERITANCE || CLASSICAL INHERITANCE
+              ==================================================
+ABSTRACTIONS||  object -> object       || classes -> objects
+----------------------------------------------------------------
+Differences ||  var human = {}         || class Human = {}
+            ||  var man =              || class Man extends Human = {}
+     in     ||     Object.create(human)|| Boaz extends new Man()
+            ||  var Boaz =             ||
+inheritance ||     Object.create(human)||
+----------------------------------------------------------------
+                Factory Functions      || tight coupling ->
+                                              refactoring ripples
+                                                -> gorilla/banana
+                                                -> viscosity DRY etc
+SLIDE 7 ==============================================================================================
+~~lots of confusion - mostly cleared up by paying attention to the collective wisdom of the those that came before~~
+
+Gang of Four design patterns
+Design Patterns: Elements of Reusable Object-Oriented Software
+  by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides,
+
+Creational patterns (5): Factory method pattern, Abstract factory pattern, Singleton pattern, Builder pattern, Prototype pattern
+Structural patterns (7): Adapter pattern, Bridge pattern, Composite pattern, Decorator pattern, Facade pattern, Flyweight pattern, Proxy pattern
+Behavioral patterns (11): Chain-of-responsibility pattern, Command pattern, Interpreter pattern, Iterator pattern, Mediator pattern, Memento pattern, Observer pattern, State pattern, Strategy pattern, Template method pattern, Visitor pattern
+
+SLIDE 8 ==============================================================================================
+SOLID principles
+    * Single Responsibility
+    * Open/closed
+    * Liskov substitution
+    * Interface segregation
+    * Dependency inversion
+
+  - term coined by Michael Feathers
+  - principles promoted by Robert C. Martin
+  - first 5 of 11 principles detailing how to design code and package it.
+
+
+Efficient code organization is about Dependency Management.
+(http://www.butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod)
+
+SLIDE 9 ==============================================================================================
+  * Single Responsibility
+    - cohesion -> derives from the functional relatedness of elements in a module.
+    - An object should have a cohesive set of behaviors together comprising a single responsibility that, if changed, would require the modification of the object’s definition.
+      -> improve testing
+      -> improved code reliability
+  - code smells:
+    -> large setups for testing,
+    ->  more than one contextually different piece of code
+
+
+Bad
+```
+src/app/model.js
+
+export const getClientsTask = http => settings =>
+  http.getTask(clientsUrl(settings))
+    .map(parse)
+    .chain(eitherToTask)
+    .map(filter(by('Id')
+    .chain(getLogosTask(http)(settings))
+
+
+export const loadTask = http => settings => {
+  getClientsTask(http)(settings)
+    .map(toViewModel())
+}
+
+```
+
+Better
+```
+src/app/model.js
+
+export const getClientsTask = http => settings =>
+  http.getTask(clientsUrl(settings))
+    .map(parse)
+    .chain(eitherToTask)
+
+export const getLogosTask = http => settings => clientId =>
+  http.get(settings)(clientId)
+
+export const loadTask = http => settings => {
+  Task.of( clients => logos => [clients, logos])
+    .ap(getClientsTask(http)(settings))
+    .ap(getLogosTask(http)(settings))
+    .map(toViewModel())
+}
+
+```
+
+
+
+SLIDE 9 B ==============================================================================================
+
+How to know if the entity is cohesive?
+
+borrowing from
+
+Object Oriented Role Analysis and Modeling:
+  the method focuses on describing patterns of interaction without connecting the interaction to particular objects/instances.
+
+ we can group behaviors into cohesive groups of responsibilities related to the object’s intended role
+
+Entity Role Stereotypes
+* Information holder – an object designed to know certain information and provide that information to other objects.
+* Structurer – an object that maintains relationships between objects and information about those relationships.
+* Service provider – an object that performs specific work and offers services to others on demand.
+* Controller – an object designed to make decisions and control a complex task.
+* Coordinator – an object that doesn’t make many decisions but, in a rote or mechanical way, delegates work to other objects.
+* Interfacer – an object that transforms information or requests between distinct parts of a system.
+
+      ***http://aspiringcraftsman.com/2011/12/08/solid-javascript-single-responsibility-principle/
+
+SLIDE 10 ==============================================================================================
+  * Open/closed
+    - Foundation for building reusable maintainable code
+    - Abstractions
+        * open for extension -> the ability for an entity to be adapted when changes occur
+        * closed to modification. -> the change should not modify the behaviour of the element.
+
+  Applying the open-closed principle:
+      -> loose coupling
+      -> improve readability
+      -> reducing the risk of breaking existing functionality.
+
+Bad
+```
+src/app/model.js
+
+export const getClientsTask = http => settings =>
+  http.getTask(clientsUrl(settings))
+    .map(parse)
+    .chain(eitherToTask)
+    .map(filter(by('Id')
+    .chain(getLogosTask(http)(settings))
+
+
+export const loadTask = http => settings => {
+  getClientsTask(http)(settings)
+    .map(toViewModel())
+}
+
+```
+
+Better
+```
+src/app/model.js
+
+export const getClientsTask = http => settings =>
+  http.getTask(clientsUrl(settings))
+    .map(parse)
+    .chain(eitherToTask)
+
+export const getLogosTask = http => settings => clientId =>
+  http.get(settings)(clientId)
+
+export const loadTask = http => settings => {
+  Task.of( clients => logos => [clients, logos])
+    .ap(getClientsTask(http)(settings))
+    .ap(getLogosTask(http)(settings))
+    .map(toViewModel())
+}
+
+```
+SLIDE 11 ==============================================================================================
+  * Liskov substitution
+    if S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program
+    - extension of the OCP
+      -> “a violation of LSP is a latent violation of OCP”.
+
+  Any extended entity should be able to replace the entity which it is an extension of without modifiyng behavior of application
+
+EXAMPLES !!!
+SLIDE 12 ==============================================================================================
+  * Interface segregation
+cont from http://aspiringcraftsman.com/2012/01/08/solid-javascript-the-interface-segregation-principle/  An entity should not have any methods that it does not use
+
+EXAMPLES !!!
+SLIDE 13 ==============================================================================================
+  * Dependency inversion
+  cont from   http://aspiringcraftsman.com/2012/01/22/solid-javascript-the-dependency-inversion-principle/
+    “High level modules should not depend on low level modules rather both should depend on abstraction. Abstraction should not depend on details; rather detail should depend on abstraction.”
+
+      Abstractions
+    ---------------
+      Concretions
+
+    - Dependency Injection
+
+EXAMPLES !!!
+SLIDE 14 ==============================================================================================
+Conclusion
