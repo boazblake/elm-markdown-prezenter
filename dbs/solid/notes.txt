@@ -131,48 +131,6 @@ SLIDE 9 ========================================================================
     ->  more than one contextually different piece of code
 
 
-Bad
-```
-src/app/model.js
-
-export const getClientsTask = http => settings =>
-  http.getTask(clientsUrl(settings))
-    .map(parse)
-    .chain(eitherToTask)
-    .map(filter(by('Id')
-    .chain(getLogosTask(http)(settings))
-
-
-export const loadTask = http => settings => {
-  getClientsTask(http)(settings)
-    .map(toViewModel())
-}
-
-```
-
-Better
-```
-src/app/model.js
-
-export const getClientsTask = http => settings =>
-  http.getTask(clientsUrl(settings))
-    .map(parse)
-    .chain(eitherToTask)
-
-export const getLogosTask = http => settings => clientId =>
-  http.get(settings)(clientId)
-
-export const loadTask = http => settings => {
-  Task.of( clients => logos => [clients, logos])
-    .ap(getClientsTask(http)(settings))
-    .ap(getLogosTask(http)(settings))
-    .map(toViewModel())
-}
-
-```
-
-
-
 SLIDE 9 B ==============================================================================================
 
 How to know if the entity is cohesive?
@@ -207,44 +165,11 @@ SLIDE 10 =======================================================================
       -> reducing the risk of breaking existing functionality.
 
 Bad
-```
-src/app/model.js
-
-export const getClientsTask = http => settings =>
-  http.getTask(clientsUrl(settings))
-    .map(parse)
-    .chain(eitherToTask)
-    .map(filter(by('Id')
-    .chain(getLogosTask(http)(settings))
-
-
-export const loadTask = http => settings => {
-  getClientsTask(http)(settings)
-    .map(toViewModel())
-}
 
 ```
 
-Better
-```
-src/app/model.js
 
-export const getClientsTask = http => settings =>
-  http.getTask(clientsUrl(settings))
-    .map(parse)
-    .chain(eitherToTask)
 
-export const getLogosTask = http => settings => clientId =>
-  http.get(settings)(clientId)
-
-export const loadTask = http => settings => {
-  Task.of( clients => logos => [clients, logos])
-    .ap(getClientsTask(http)(settings))
-    .ap(getLogosTask(http)(settings))
-    .map(toViewModel())
-}
-
-```
 SLIDE 11 ==============================================================================================
   * Liskov substitution
     if S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program
