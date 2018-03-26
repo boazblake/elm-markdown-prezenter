@@ -20,8 +20,6 @@ const shapeE = Shape(9)(9)
 
 const shapes = [shapeA, shapeB, shapeC, shapeD, shapeE]
 
-console.log(shapeA.area())
-
 const calculator = {
     calculate(xs) {
       const sum = (accumulator, shape) => {
@@ -35,7 +33,11 @@ const calculator = {
 
 
 const shapesArea = calculator.calculate(shapes)
-console.log(shapesArea)
+//to add a trinagle shape I need to modify - and not extend thus breaking OCP
+const triangleShape = Object.create(Shape(7)(5), {'area':{value: function(){ return (this.height * this.width )/ 2}}})
+const shapesWithTriangle = [triangleShape].concat(shapes)
+const shapesWithTriangleArea = calculator.calculate(shapesWithTriangle)
+console.log(shapesWithTriangleArea)
 
 /*This is because I am breaking the principle of single responsibility.
 const shape = w => h => ({width: w, height: h, area: h * w})

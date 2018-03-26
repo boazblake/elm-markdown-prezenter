@@ -1,46 +1,67 @@
 SOLID PRINCIPLES of Object Orientated Programing
 
 intro
-  Exciting times at Empyrean ~ building new applications ~ building new versions of exisiting applications
-  Have an appertunity to start how we mean to go on
+  Exciting times at Empyrean
+   ~ building new applications ~
+   ~ building new versions of exisiting applications ~
 
-SLIDE 1 ==============================================================================================
 What goes wrong with software?
 -----------------------------
 Most software engineers don’t set out to create “bad designs”. Yet most software
 eventually degrades to the point where someone will declare the design to be unsound.
 Why does this happen? Was the design poor to begin with, or did the design actually
-degrade like a piece of rotten meat?
-***  Uncle Bob: http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod
+degrade like a piece of rotten meat? Uncle Bob
+*** http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod
+
+SLIDE 1 ==============================================================================================
+On Good Design
+--------------
+The key in making great and growable systems is much more to design how its
+modules communicate rather than what their internal properties and
+behaviors should be. Alan Kay
+*** http://lists.squeakfoundation.org/pipermail/squeak-dev/1998-October/017019.html
 
 SLIDE 2 ==============================================================================================
+On Bad Design
+--------------
 At the heart of this issue is our lack of a good working definition of “bad” design.
 ***  Uncle Bob: http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod
 
-A piece of software that fulfills its requirements and yet
-  exhibits any or all
-   of the following three traits
-has a bad design.
+I would say that a system that allowed other metathings to be done in the ordinary course of
+programming (like changing what inheritance means, or what is an instance) is a bad design.
+Alan Kay
+*** http://lists.squeakfoundation.org/pipermail/squeak-dev/1998-October/017019.html
+
+
+A piece of software that fulfills its requirements and yet exhibits any or all of the following
+three traits has a bad design.
+***  Uncle Bob: http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod
 
 1. Rigidity -> It is hard to change. (because every change affects too many other parts of the system.)
 2. Fragility -> When you make a change, unexpected parts of the system break.
 3. Immobility -> It is hard to reuse in another application. (because it cannot be disentangled from the current application)
 
-How to solve?
 SLIDE 3 ==============================================================================================
-
 Computer Programming Paradigms
 ===============================
 Object Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.
 OOP ranges from:
   * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel
-  * Languages designed mainly for OO programming: Java, C++, C#,
+  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated
   * Languages that are historically procedural languages: PHP Fortran, matlab
 
 Object Orientated Programing
- Smalltalk, C++, C#
-Idea was to have data perfectly encapsulated as attributes of objects which would have the notion of "self/this"
- and would be able to manipulate the data with private methods and communicate with other objects using public methods sending messages.
+ Smalltalk.
+
+Idea :
+    obj {}
+      -> have a notion of this
+      -> data would be perfectly encapsulate as attributes
+      -> communicate with messages to other objects using API
+
+      (was to have data perfectly encapsulated as attributes of objects with the notion of "self/this"
+      and would be able to manipulate the data with private methods and communicate with other objects
+      using public methods sending messages.)
 
 SLIDE 4 ==============================================================================================
 Criticisms of OOP
@@ -57,7 +78,7 @@ Luca Cardelli has claimed that:
 
 
 SLIDE 5 ==============================================================================================
-Rebuttel
+Rebuttels from OO commmunity
   *** Object-oriented programming is more than just classes and objects;
   it's a whole programming paradigm based around objects (data structures)
   that contain data fields and methods.
@@ -72,16 +93,39 @@ Rebuttel
     We don't need classes to make lots of similar objects… Objects inherit from objects.
     What could be more object oriented than that?"
 
-
 SLIDE 6 ==============================================================================================
-Classical vs prototypical inheritance
+Classical vs prototypical inheritance*
+TLDR;
+How the confusion began:
+B.Eich (js inventor) worked at Netscape who wanted to use the marketing of Java
+so they sold JS as Class-ical inheritance program langaguge instead of using it
+how it was intended.
+How to solve:
+use OLOO and MOP (not classical).
 
-Prototype object oriented programming uses generalized objects, which can be cloned and extended.
-Class-based paradigm, uses generalized Classes which are extended when used by another class.
+
+SLIDE 6B ==============================================================================================
+* inheritance means copy (with no link -- think biology) is a misnomer for prototypical ... better word is delegation.
+
+prototypical inheritance
+------------------------
+thanks to Doug Crockford (JavaScript the good parts, monads and gonads) we have
+built in to ES5:
+
+where `o` is the object we wish to delegate to
+
+```function object(o) {
+  function F() {}
+  F.prototype = o;
+  return new F();
+};
+```
+* Prototype object oriented programming uses generalized objects, which can be cloned and extended.
+* Class-based paradigm, uses generalized Classes which are extended when used by another class.
 
               PROTOTYPICAL INHERITANCE || CLASSICAL INHERITANCE
               ==================================================
-ABSTRACTIONS||  object -> object       || classes -> objects
+ABSTRACTIONS||  object <- object       || classes -> objects   ||   the direction of the arrows...
 ----------------------------------------------------------------
 Differences ||  var human = {}         || class Human = {}
             ||  var man =              || class Man extends Human = {}
@@ -90,21 +134,58 @@ Differences ||  var human = {}         || class Human = {}
 inheritance ||     Object.create(human)||
 ----------------------------------------------------------------
                 Factory Functions      || tight coupling ->
-                                              refactoring ripples
-                                                -> gorilla/banana
-                                                -> viscosity DRY etc
-SLIDE 7 ==============================================================================================
-~~lots of confusion - mostly cleared up by paying attention to the collective wisdom of the those that came before~~
+                                       ||       refactoring ripples
+                                       ||       -> gorilla/banana
+                                       ||       -> gorilla/banana
+                                       ||       -> viscosity DRY etc
+                *can create and        ||       -> have to create and instantiate at same time
+                instantiate at
+                different time
 
-Gang of Four design patterns
-Design Patterns: Elements of Reusable Object-Oriented Software
+
+
+D. crockford created Object.create, which stops us needing to use classes.
+http://imagizer.imageshack.us/a/img911/5519/fxn2D3.png
+
+SLIDE 6C ==============================================================================================
+Message-Oriented Programming
+-----------------------------
+We use abstractions when we program. The types of abstractions we use generally fall under different programming methodologies.
+In object-oriented programming, we use objects as the core abstraction along with attributes, methods, variables and parameters (to name a few).
+In functional programming, the core abstraction is functions along with parameters and variables (to name a few).
+In message-oriented programming (not to be confused with messaging systems and frameworks), messages and properties are the only abstractions. There are no methods, functions, parameters, variables and so on. A property of a message contains a single message or a composition of messages.
+A composition of messages is really a data structure. This means that our programs are actually data structures and, as such, can be manipulated just like you would any data structure. Want to duplicate and run part of a program in it’s own thread? Just copy the program from that point, as you would any data structure, and run it.
+Want to store part of your program? Just point at any part of your program and save it as you would any data structure.
+***http://blog.interfacevision.com/design/design-mop-and-javascript/
+
+-> actor model in JS: https://monades.roperzh.com/get-to-know-the-actor-model/
+
+-> reactive manifesto (https://www.reactivemanifesto.org/)
+
+SLIDE 7 ==============================================================================================
+luckily we have GOF and POOD
+
+The Gang of Four design patterns
+***Design Patterns: Elements of Reusable Object-Oriented Software
   by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides,
 
 Creational patterns (5): Factory method pattern, Abstract factory pattern, Singleton pattern, Builder pattern, Prototype pattern
 Structural patterns (7): Adapter pattern, Bridge pattern, Composite pattern, Decorator pattern, Facade pattern, Flyweight pattern, Proxy pattern
 Behavioral patterns (11): Chain-of-responsibility pattern, Command pattern, Interpreter pattern, Iterator pattern, Mediator pattern, Memento pattern, Observer pattern, State pattern, Strategy pattern, Template method pattern, Visitor pattern
 
+And Principles of Ood
+***http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod
+  - 11 Principles promoted by Robert C. Martin
+  - Detailing how to design and package software.
+  - first 5 of 11 principles detailing how to design code.
+  - term coined by Michael Feathers
+  - SOLID PRINCIPLES
+
 SLIDE 8 ==============================================================================================
+
+Efficient code organization is about Dependency Management.
+***Uncle Bob
+
 SOLID principles
     * Single Responsibility
     * Open/closed
@@ -112,27 +193,18 @@ SOLID principles
     * Interface segregation
     * Dependency inversion
 
-  - term coined by Michael Feathers
-  - principles promoted by Robert C. Martin
-  - first 5 of 11 principles detailing how to design code and package it.
-
-
-Efficient code organization is about Dependency Management.
-(http://www.butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod)
-
 SLIDE 9 ==============================================================================================
   * Single Responsibility
     - cohesion -> derives from the functional relatedness of elements in a module.
-    - An object should have a cohesive set of behaviors together comprising a single responsibility that, if changed, would require the modification of the object’s definition.
+    - An object should have a cohesive set of behaviors together comprising a single responsibility that,
+      if changed, would require the modification of the object’s definition.
       -> improve testing
       -> improved code reliability
   - code smells:
     -> large setups for testing,
     ->  more than one contextually different piece of code
 
-
 SLIDE 9 B ==============================================================================================
-
 How to know if the entity is cohesive?
 
 borrowing from
@@ -152,6 +224,12 @@ Entity Role Stereotypes
 
       ***http://aspiringcraftsman.com/2011/12/08/solid-javascript-single-responsibility-principle/
 
+
+SLIDE 9 C ==============================================================================================
+SRP KATA
+
+
+
 SLIDE 10 ==============================================================================================
   * Open/closed
     - Foundation for building reusable maintainable code
@@ -164,10 +242,7 @@ SLIDE 10 =======================================================================
       -> improve readability
       -> reducing the risk of breaking existing functionality.
 
-Bad
-
-```
-
+SLIDE 10 B ==============================================================================================
 
 
 SLIDE 11 ==============================================================================================
@@ -178,12 +253,14 @@ SLIDE 11 =======================================================================
 
   Any extended entity should be able to replace the entity which it is an extension of without modifiyng behavior of application
 
-EXAMPLES !!!
+SLIDE 11 B ==============================================================================================
+
+
+
 SLIDE 12 ==============================================================================================
   * Interface segregation
 cont from http://aspiringcraftsman.com/2012/01/08/solid-javascript-the-interface-segregation-principle/  An entity should not have any methods that it does not use
 
-EXAMPLES !!!
 SLIDE 13 ==============================================================================================
   * Dependency inversion
   cont from   http://aspiringcraftsman.com/2012/01/22/solid-javascript-the-dependency-inversion-principle/
@@ -195,6 +272,5 @@ SLIDE 13 =======================================================================
 
     - Dependency Injection
 
-EXAMPLES !!!
 SLIDE 14 ==============================================================================================
 Conclusion
