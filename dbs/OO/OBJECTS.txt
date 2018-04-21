@@ -1,0 +1,201 @@
+JS OBJECT ORIENTATION
+
+SLIDE 1 ==============================================================================================
+Computer Programming Paradigms
+===============================
+Object Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.
+
+OOP ranges from:
+  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel
+  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated
+  * Languages that are historically procedural languages: PHP Fortran, matlab
+
+Object Orientated Programing
+started in the 60s at the same time as interest in graphics and user interfaces, pattern matching (reg exp)
+Simula  helped inspire the actor model of concurrent computation (messaging orientated programming)
+inspiriation for the development of
+ Smalltalk and later object-oriented programming languages.
+
+  lead designer Alan Kay:
+    I'm sorry that I long ago coined the term "objects" for this topic because it gets many people to focus on the lesser idea. The big idea is "messaging"
+
+worked on sketchpad with Ivan Sutherland MIT:
+  applliying constrainst of physics to achieve goals
+  https://www.youtube.com/watch?v=6orsmFndx_o
+  https://www.youtube.com/watch?v=p2LZLYcu_JY
+
+designer of GRail (GRaphical Input Language ):
+ https://www.youtube.com/watch?v=QQhVQ1UG6aM
+
+Idea :
+    obj {}
+      -> have a notion of this
+      -> data would be perfectly encapsulate as attributes
+      -> communicate with messages to other objects using public methods
+
+      (was to have data perfectly encapsulated as attributes of objects with the notion of "self/this"
+      and would be able to manipulate the data with private methods and communicate with other objects
+      using public methods sending messages.)
+
+SLIDE 2 ==============================================================================================
+Criticisms of OOP
+Luca Cardelli has claimed that:
+   OOP code is "intrinsically less efficient" than procedural code,
+  that OOP can take longer to compile, and
+  that OOP languages have "extremely poor modularity properties with respect to class extension and modification",
+  and tend to be extremely complex.
+
+  ***The problem with object-oriented languages {sic javascript } is they've got all this implicit
+   environment that they carry around with them.
+   You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. 
+      Joe Armstrong, the principal inventor of Erlang:
+
+
+SLIDE 3 ==============================================================================================
+Rebuttels from OO commmunity
+  *** Object-oriented programming is more than just classes and objects;
+  it's a whole programming paradigm based around objects (data structures)
+  that contain data fields and methods.
+  It is essential to understand this;
+  using classes to organize a bunch of unrelated methods together is not object orientation.
+      Junade Ali, Mastering PHP Design Patterns
+
+  ***Douglas Crockford:
+    "you make prototype objects, and then … make new instances.
+    Objects are mutable in JavaScript, so we can augment the new instances, giving them new fields and methods.
+    These can then act as prototypes for even newer objects.
+    We don't need classes to make lots of similar objects… Objects inherit from objects.
+    What could be more object oriented than that?"
+
+  ***Kyle Simpson
+  We have spent the better part of 19 years since JS was inveneted pretending that
+   its internal mechanisms are class based so we spent all our time trying to syntactictly sugar-coat it
+   instead of realizing that JS internal mechanisms are **linkages not copies**.
+
+  https://app.pluralsight.com/player?course=advanced-javascript&author=kyle-simpson&name=advanced-javascript-m4&clip=9&mode=live
+
+SLIDE 4 ==============================================================================================
+Classical vs prototypical inheritance*
+TLDR;
+B.Eich (js inventor) works at Netscape
+Netscape management jump on Java popularity bandwagon
+JS is billed as Class-ical inheritance program langaguge.
+Not how it was intended.
+in JS
+  -> Objects are not * based on * their constructor prototypes.
+  -> Objects are * linked to * their constructor prototype.
+  -> Object properties/methods shadow prototypes
+
+SLIDE 4B ==============================================================================================
+* inheritance means copy (with no link -- think biology) is a misnomer for prototypical ... better word is delegation.
+
+prototypical inheritance
+------------------------
+thanks to Doug Crockford (JavaScript the good parts, monads and gonads) we have
+built in to ES5:
+
+where `o` is the object we wish to delegate to
+
+```function object(o) {
+  function F() {}
+  F.prototype = o;
+  return new F();
+};
+```
+* Prototype object oriented programming uses generalized objects, which can be cloned (maintaining a link) and extended.
+* Class-based paradigm, uses generalized Classes which are extended when used by another class, method names
+  are kept the same (for extensability) but instances have no connection to the class.
+
+              PROTOTYPICAL INHERITANCE || CLASSICAL INHERITANCE
+              ==================================================
+ABSTRACTIONS||  object <- object       || classes -> objects   ||   the direction of the arrows...
+----------------------------------------------------------------
+Differences ||  var human = {}         || class Human = {}
+            ||  var man =              || class Man extends Human = {}
+     in     ||     Object.create(human)|| Boaz extends new Man()
+            ||  var Boaz =             ||
+inheritance ||     Object.create(human)||
+----------------------------------------------------------------
+                Factory Functions      || tight coupling ->
+                                       ||       refactoring ripples
+                                       ||       -> The fragile base class problem
+                                       ||         -> Inflexible hierarchy problem
+                                       ||         -> gorilla/banana
+                                       ||         -> viscosity DRY etc
+                                       ||         -> duplication by necessity problem
+               * can create and        ||         -> have to create and instantiate at same time
+                instantiate at         ||         -> have to force-shadow which leads to confusing this ref.
+                different time *
+
+
+HOW TO
+http://imagizer.imageshack.us/a/img911/5519/fxn2D3.png
+
+SLIDE 5 ==============================================================================================
+Object creation
+
+Prototype:
+function Person(first, last, age, gender, interests) {
+  this.name = {
+    'first': first,
+    'last' : last
+  };
+  this.age = age;
+  this.gender = gender;
+  this.interests = interests;
+  this.bio = function() {
+    alert(this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+  };
+  this.greeting = function() {
+    alert('Hi! I\'m ' + this.name.first + '.');
+  };
+}
+
+var person1 = new Person('Bob', 'Smith', 32, 'male', ['music', 'skiing']);
+
+
+Object:
+var person = new Object({
+  name: 'Chris',
+  age: 38,
+  greeting: function() {
+    alert('Hi! I\'m ' + this.name + '.');
+  }
+});
+
+
+var person1 = Object.create(person);
+
+
+Object.create()
+
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_JS
+
+SLIDE 6 ==============================================================================================
+X-TRA
+Message-Oriented Programming
+-----------------------------
+We use abstractions when we program.
+The types of abstractions we use generally fall under different programming methodologies.
+
+In object-oriented programming
+  --> we use objects as the core abstraction along with attributes, methods, variables and parameters (to name a few).
+In functional programming
+  --> the core abstractions are functions along with parameters and variables (to name a few).
+In message-oriented programming (not to be confused with messaging systems and frameworks)
+  --> Messages and properties are the only abstractions.
+  --> There are no methods, functions, parameters, variables and so on.
+  --> A property of a message contains a single message or a composition of messages.
+  --> A composition of messages is a data structure.
+This means that MOP programs are data structures and, as such,
+  --> can be manipulated just like you would any data structure.
+  --> Want to duplicate and run part of a program in it’s own thread?
+      --> Just copy the program from that point, as you would any data structure, and run it.
+  --> Want to store part of your program?
+    --> Just point at any part of your program and save it as you would any data structure.
+
+***http://blog.interfacevision.com/design/design-mop-and-javascript/
+
+-> actor model in JS: https://monades.roperzh.com/get-to-know-the-actor-model/
+
+-> reactive manifesto (https://www.reactivemanifesto.org/)
