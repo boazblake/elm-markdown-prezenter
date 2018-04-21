@@ -8,7 +8,7 @@
   "scripts": {
     "start": "nf start",
     "client": "elm-app start",
-    "api": "node api.js"
+    "server": "node server.js"
   },
   "dependencies": {
     "font-awesome": "^4.7.0",

@@ -100,17 +100,17 @@ slidesCollection : Model -> Html Msg
 slidesCollection model =
   model.slides
     |> List.sortBy .title
-    |> List.map slideCard
+    |> List.map (slideCard model)
     |> div [ class "columns tile is-ancestor is-variable is-multiline"]
         -- (List.map slide model.slides)
 
-slideCard : Slide -> Html Msg
-slideCard slide =
+slideCard : Model -> Slide -> Html Msg
+slideCard model slide =
   article [ class "column tile is-parent is-2 is-vertical box notification"]
     [ div [class "article tile is-child" ]
       [ text slide.title]
     , div [class "article tile is-parent"]
-      [ button [ type_ "button", class <| "button " ++ isEditing slide, onClick (EditSlide slide)]
+      [ button [ type_ "button", class <| "button " ++ isEditing slide model, onClick (EditSlide slide)]
           [ i  [ class "fa fa-edit" ]
             []]
     , button [ type_ "button", class "button", onClick (AddSlideToShow slide)]
@@ -120,13 +120,15 @@ slideCard slide =
       ]
     ]
 
-isEditing : Slide -> String
-isEditing slide =
-  case slide.isEditing of
-    True ->
-      "is-info"
-    False ->
-      ""
+isEditing : Slide -> Model -> String
+isEditing slide model =
+  case model.slideId of
+    Just id
+      -> if id == slide.id
+      then "is-info"
+      else ""
+    Nothing
+      -> ""
 
 slideForm : Model -> Html Msg
 slideForm model =
