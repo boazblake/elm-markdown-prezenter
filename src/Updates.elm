@@ -35,11 +35,11 @@ update msg model =
       let
           emptyTitle =
             String.isEmpty model.title
-          
+
           emptyContents =
             String.isEmpty model.contents
       in
-          
+
       if emptyTitle || emptyContents then
         (model, Cmd.none)
       else
@@ -143,7 +143,7 @@ addSlideToShow model slide =
   let
     showSlideId =
       model.showSlides
-        |> List.length 
+        |> List.length
 
     newShowSlide =
       ShowSlide showSlideId slide.id slide.title slide.contents
@@ -152,7 +152,7 @@ addSlideToShow model slide =
       List.filter(\s -> s.slideId == x.slideId) xs
 
   in
-    if 
+    if
       List.isEmpty (model.showSlides |> isUnique newShowSlide )
     then
       (
@@ -176,7 +176,7 @@ edit : Model -> Int -> (Model, Cmd Msg)
 edit model id =
   let
     compareSlideById slide id =
-      slide.id == id 
+      slide.id == id
 
     newSlides =
       List.map

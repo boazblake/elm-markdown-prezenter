@@ -1,9 +1,14 @@
 SOLID PRINCIPLES of Object Orientated Programing
 
 intro
-  Exciting times at Empyrean
-   ~ building new applications ~
-   ~ building new versions of exisiting applications ~
+  "a significant barrier to progress in computer science is the
+  fact that many practitioners are ignorant of the history of
+  computer science: old accomplishments (and failures!) are
+  forgotten, and consequently the industry reinvents itself every
+  5-10 years. <Alan Kay>" The Cuneiform Tablets of 2015
+  http://www.vpri.org/pdf/tr2015004_cuneiform.pdf
+
+
 
 What goes wrong with software?
 -----------------------------
@@ -39,14 +44,6 @@ three traits has a bad design.
 1. Rigidity -> It is hard to change. (because every change affects too many other parts of the system.)
 2. Fragility -> When you make a change, unexpected parts of the system break.
 3. Immobility -> It is hard to reuse in another application. (because it cannot be disentangled from the current application)
-
-
-"a significant barrier to progress in computer science is the
-fact that many practitioners are ignorant of the history of
-computer science: old accomplishments (and failures!) are
-forgotten, and consequently the industry reinvents itself every
-5-10 years. <Alan Kay>" The Cuneiform Tablets of 2015
-http://www.vpri.org/pdf/tr2015004_cuneiform.pdf
 
 SLIDE 3 ==============================================================================================
 
@@ -111,11 +108,18 @@ SLIDE 5 ========================================================================
 SLIDE 5 B ==============================================================================================
 How to know if the entity is cohesive?
 
-borrowing from
-
 Object Oriented Role Analysis and Modeling:
-  the method focuses on describing patterns of interaction without connecting the interaction to particular objects/instances.
+* http://www.idi.ntnu.no/grupper/su/publ/html/totland/ch0528.htm
+* http://www.wirfs-brock.com/PDFs/A_Brief-Tour-of-RDD.pdf
 
+In OORAM
+Objects are structured according to their interactions (note that object relations are not stressed).
+  - has state (i.e., attributes) providing memory;
+  - has behavior, supporting dynamic aspects;
+  - it is encapsulated to hide complexity.
+
+ Objects play various roles.
+ A role model is an abstraction of an object structure.
  we can group behaviors into cohesive groups of responsibilities related to the object’s intended role
 
 Entity Role Stereotypes

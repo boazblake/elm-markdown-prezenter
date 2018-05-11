@@ -58,7 +58,6 @@ renderSlidePickerPage model =
   div [class "container is-fluid"]
     [ body model
     , slideShowSection model
-    -- , p [] [text (toString model)]
     ]
 
 
@@ -102,7 +101,6 @@ slidesCollection model =
     |> List.sortBy .title
     |> List.map (slideCard model)
     |> div [ class "columns tile is-ancestor is-variable is-multiline"]
-        -- (List.map slide model.slides)
 
 slideCard : Model -> Slide -> Html Msg
 slideCard model slide =
@@ -110,18 +108,18 @@ slideCard model slide =
     [ div [class "article tile is-child" ]
       [ text slide.title]
     , div [class "article tile is-parent"]
-      [ button [ type_ "button", class <| "button " ++ isEditing slide model, onClick (EditSlide slide)]
+      [ button [ type_ "button", class <| "button " ++ isEditing model slide, onClick (EditSlide slide)]
           [ i  [ class "fa fa-edit" ]
             []]
-    , button [ type_ "button", class "button", onClick (AddSlideToShow slide)]
+    , button [ type_ "button", class <| "button " ++  isSelected model slide, onClick (AddSlideToShow slide)]
           [ i  [ class "fa fa-share-square-o" ]
             []
             ]
       ]
     ]
 
-isEditing : Slide -> Model -> String
-isEditing slide model =
+isEditing : Model -> Slide -> String
+isEditing model slide =
   case model.slideId of
     Just id
       -> if id == slide.id
@@ -129,6 +127,12 @@ isEditing slide model =
       else ""
     Nothing
       -> ""
+
+isSelected : Model -> Slide -> String
+isSelected model slide =
+  if List.any (\s->s.slideId==slide.id) model.showSlides then
+    "is-warning"
+  else ""
 
 slideForm : Model -> Html Msg
 slideForm model =
@@ -225,7 +229,6 @@ slideContentViewer model =
         currentSlide =
           (List.sortBy .id model.showSlides, model.currentSlideId)
             |> toCurrentSlide
-            -- |> Debug.log "text"
             |> toValue
             |> toHtml
             |> toMarkDown
@@ -234,9 +237,6 @@ slideContentViewer model =
       in
         div [class "container"]
           [
-          --   text (toString slideShow)
-          -- , div[] [text "----------------------"]
-          -- , text (toString model)
                div [ class "hero box is-bold" ]
                   [
                   article [ class "media" ]

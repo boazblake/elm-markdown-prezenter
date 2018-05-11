@@ -57,7 +57,7 @@ saveSlidesCmd model =
 
 slidesEncoder : List Slide -> Encode.Value
 slidesEncoder slides =
-  Encode.list (List.map(slideEncoder)slides)
+  Encode.list (List.map slideEncoder slides)
 
 slideEncoder : Slide -> Encode.Value
 slideEncoder slide =
