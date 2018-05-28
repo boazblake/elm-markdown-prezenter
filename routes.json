@@ -1,0 +1,7 @@
+{
+	"/api/slides/": "/slides",
+	"/a/api/*": "/$1",
+	"/a/:resource/:id/show": "/:resource/:id",
+	"/a/posts/:category": "/posts?category=:category",
+	"/a/articles\\?id=:id": "/posts/:id"
+}
