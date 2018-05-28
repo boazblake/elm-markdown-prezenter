@@ -1,4 +1,4 @@
-let db = require('./dbs/OO/oo/db.json');
+let db = require('./dbs/semantics/db.json');
 
 let counter = 0;
 const id = () => counter + 1;
@@ -11,11 +11,11 @@ module.exports = (req, res, next) => {
 	switch (req.method) {
 		case 'POST':
 			db.slides[id()] = req.body;
-			console.log('POSTING SLIDES>git stta>>>>>>>\n', db);
+			console.log('POSTING SLIDES>git stta>>>>>>>\n', db.slides[id()]);
 			next();
 			break;
 		case 'GET':
-			console.log('FETCHING SLIDES>>>>\n', db);
+			console.log('FETCHING SLIDES>>>>\n', db.slides);
 			next();
 			break;
 		default:
