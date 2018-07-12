@@ -1,3 +1,67 @@
 {
-	"slides": []
+  "slides": [
+    {
+      "id": 8,
+      "title": "SLIDE 3B",
+      "contents":
+        "WHY SO MUCH CONFUSION ?\n===\n\n![kyle simpson](https://images.hanselminutes.com/images/500.jpg)\n**Kyle Simpson**\n>  We have spent the better part of 19 years since JS was invented **pretending** that its internal mechanisms are **class based** so we spent all our time trying to syntactictly sugar-coat it instead of realizing that JS internal mechanisms are **linkages not copies**.\n\n  https://app.pluralsight.com/player?course=advanced-javascript&author=kyle-simpson&name=advanced-javascript-m4&clip=9&mode=live\n",
+      "isEditing": false
+    },
+    {
+      "id": 7,
+      "title": "SLIDE 0",
+      "contents":
+        "# Everyone hates JavaScript \n Q: WTF is This?? (what/when)\n\nA:** You dont know JS**\n\n![kyle simpson](https://images.hanselminutes.com/images/500.jpg)\n**Kyle Simpson**\n>JS has been plagued since the beginning with **misunderstanding** and **awkwardness** around its \"prototypal inheritance\" system, mostly due to the fact that **\"inheritance\"** isn't how JS works. \n",
+      "isEditing": false
+    },
+    {
+      "id": 6,
+      "title": "SLIDE 2a",
+      "contents":
+        "## Brief History of Object Orientated Programing\n\n* began ~ 60s\n* Graphics and user interfaces (sketchpad by Ivan Sutherland)\n<iframe src='https://gfycat.com/ifr/BraveTastyFirebelliedtoad' frameborder='0' scrolling='no' allowfullscreen width='640' height='480'></iframe>\n\n  - pattern matching (reg exp)\n  - creation of Simula Programing langaguge by **Ole-Johan Dahl** and **Kristen Nygaard**\n     - introduced *objects, classes, inheritance, subclasses, virtual procedures, coroutines, discrete event simulation, and features of garbage collection*.\n     - helped inspire the **actor model of concurrent computation** (messaging orientated programming)\ninspiriation for the development of\n **Smalltalk** which was the **progenitor** for most of the other object-oriented programming languages we know today.",
+      "isEditing": false
+    },
+    {
+      "id": 5,
+      "title": "Message Oriented Programming",
+      "contents":
+        "Message-Oriented Programming\n-----------------------------\nWe use abstractions when we program.\nThe types of abstractions we use generally fall under different programming methodologies.\n\nIn object-oriented programming\n  --> we use objects as the core abstraction along with attributes, methods, variables and parameters (to name a few).\nIn functional programming\n  --> the core abstractions are functions along with parameters and variables (to name a few).\nIn message-oriented programming (not to be confused with messaging systems and frameworks)\n  --> Messages and properties are the only abstractions.\n  --> There are no methods, functions, parameters, variables and so on.\n  --> A property of a message contains a single message or a composition of messages.\n  --> A composition of messages is a data structure.\nThis means that MOP programs are data structures and, as such,\n  --> can be manipulated just like you would any data structure.\n  --> Want to duplicate and run part of a program in it’s own thread?\n      --> Just copy the program from that point, as you would any data structure, and run it.\n  --> Want to store part of your program?\n    --> Just point at any part of your program and save it as you would any data structure.\n\n***http://blog.interfacevision.com/design/design-mop-and-javascript/\n\n-> actor model in JS: https://monades.roperzh.com/get-to-know-the-actor-model/\n\n-> reactive manifesto (https://www.reactivemanifesto.org/)\n",
+      "isEditing": false
+    },
+    {
+      "id": 4,
+      "title": "SLIDE 5",
+      "contents":
+        "\nHOW TO CREATE OBJECTS IN JS?\n==\n\n![objects in js](http://imagizer.imageshack.us/a/img911/5519/fxn2D3.png \n)\n\n### New Constructor Fn:\n1. Brand new object\n2. Object gets linked to its prototype\n3. Context gets set to this\n4. Returns this\n\nThanks to **Doug Crockford** (JavaScript the good parts, monads and gonads) we have\nbuilt in to ES5\n**Object.create** does the first 2 things that the new constructor does:\n1. create a brand new object, and \n2. links it to its prototype\n\n\"Under the hood\" Object.create does this:\n\nwhere `o` is the object we wish to delegate to\n\n```\nfunction object(o) {\n  function F() {}\n  F.prototype = o;\n  return new F();\n};\n```",
+      "isEditing": false
+    },
+    {
+      "id": 3,
+      "title": "SLIDE 4",
+      "contents":
+        "Classical Inheritance VS Prototypical Delegation\n=====\n\n\n> ### Prototypal delegation is actually the Behavioural Delegation Pattern\n\n![delegation vs inheritance](https://cdn-images-1.medium.com/max/1600/1*UZKbYsRuM1OVW3__aZdPdw.png)\n\n* **Prototype-delegation** languages uses generalized objects, which can be **cloned** from another object, **extended** and method must be shadowed as a link to the original object still remains.\n* **Class-based** paradigm langauaged, uses generalized **Classes** which are **extended** when used by another **class**, method names are kept the same (for extensability) but **object instances** have no connection to the  **class**.\n\n\n<table>\n    <thead>\n      <th></th>\n      <th>PROTOTYPICAL DELEGATION</th>\n      <th>CLASSICAL INHERITANCE</th>\n    </thead>\n    <tbody>\n    <tr>\n      <td>ABSTRACTIONS</td>\n      <td>object <- object</td>\n      <td>classes -> objects</td>\n    </tr>\n    <tr>\n      <td>Differences In Relations</td>\n      <td>var Human = {} var man = Object.create(human) var Tom = Object.crate(man)</td>\n      <td>Class Human = {} Class Man extends Human = {} Tom extends new Man()</td>\n    </tr>\n    <tr>\n      <td></td>\n      <td>Facory Functions - allow for seperation of creation and instantiaion</td>\n      <td>Tight Coupling -> refactoring ripples -> The fragile base class problem-> Inflexible hierarchy problem -> gorilla/banana-> viscosity DRY etc-> duplication by necessity problem-> have to create and instantiate at same time-> have to force-shadow which leads to confusing this ref.</td>\n    </tr>\n    </tbody>\n</table>\n\n**Based On**: comes from class orientated program thinking such as C# where a class is like a blueprint and you get an unrelated object from that class\nIn Js a constructor function creates an object that is **linked to** the **constructor function**s prototype and are not **based on** the contstructors prototye\n\n\n### **TLDR;**\n* #### B.Eich (js inventor) works at Netscape.\n* #### Netscape management jump on Java popularity bandwagon.\n* #### JS is billed as Class-ical inheritance program langaguge.\n<br/>\n##### 1. in JS Objects are not  **based on** their constructor prototypes.\n##### 2. Objects are **linked to** their constructor prototype.\n##### 3. Object properties/methods **shadow prototypes**",
+      "isEditing": false
+    },
+    {
+      "id": 2,
+      "title": "SLIDE 3",
+      "contents":
+        "Rebuttels from OO commmunity\n===\n**Junade Ali, **Mastering PHP Design Patterns:\n>Object-oriented programming is more than just classes and objects;\n\n>it's a whole programming paradigm based around data structures that contain data fields and methods. i.e. objects.\n> It is essential to understand that just using classes to organize a bunch of unrelated methods together is not object orientation.\n\n**Douglas Crockford**:\n> You make prototype objects, and then … make new instances of them.\nObjects are mutable in JavaScript, so we can augment the new instances, giving them new fields and methods. These can then act as prototypes for even newer objects.\n\n> We don't need classes to make lots of similar objects… Objects inherit from objects.\n    What could be more object oriented than that?\"\n\n**Alan Kay**:\n>I'm sorry that I long ago coined the term \"objects\" for this topic because it gets many people to focus on the **lesser idea {of objects}**  when the big idea is **messaging.**\n\n>OOP to me means:\n1. Communicating by messages,\n2. local retention and protection and hiding of state-process, and \n3. extreme late-binding of all things. \n\nhttp://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en\n\n```\nobj {}\n      -> have a notion of this\n      -> data would be perfectly encapsulate as attributes\n      -> communicate with messages to other objects using public methods.\n```",
+      "isEditing": false
+    },
+    {
+      "id": 1,
+      "title": "SLIDE 2b",
+      "contents":
+        "Criticisms of OOP\n===\n**Luca Cardelli** has claimed that:\n  > * OOP code is \"intrinsically less efficient\" than procedural code,\n*  that OOP can take longer to compile, and\n* that OOP languages have \"extremely poor modularity properties with respect to class extension and modification\",\n* and tend to be extremely complex.\n\n**Joe Armstrong**, the principal inventor of Erlang:\n>The problem with object-oriented languages {sic javascript } is they've got all this implicit\n   environment that they carry around with them.\n   You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. ",
+      "isEditing": false
+    },
+    {
+      "id": 0,
+      "title": "SLIDE 1",
+      "contents":
+        "COMPUTER PROGRAMING PARADIGMS\n===\n\nOO Catagrorized as part of the **Structured Paradigms** of computer programming paradigms.\n![programming paradigms](http://atelier.inf.unisi.ch/~dalsat/sai/projects/2015/media/images/sw/paradigms_title.png)\n\n**OOP** ranges from:\n  * **pure OO** languages such as : Ruby, Scala, Smalltalk, Eiffel, Lua\n  * Languages **designed** mainly for OO programming: Java, C++, C#, Python \n  * Languages that are **procedural**: PHP, Fortran, matlab.\n\n> side note: **Java, C++, C#**,  are **Class-Orientated not Object Orientated** . One needs to create a class in order to instantiate an object.<br/><br/>\nHowever, In JS you create a brand new object \"out of thin air\" each time a constructor function is called *which erronerosly lends itself to the idea that JS may have classes.*",
+      "isEditing": false
+    }
+  ]
 }

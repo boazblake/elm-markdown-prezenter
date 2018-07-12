@@ -3,22 +3,32 @@ JS OBJECT ORIENTATION
 SLIDE 1 ==============================================================================================
 Computer Programming Paradigms
 ===============================
-Object Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.
-
-OOP ranges from:
-  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel
-  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated
-  * Languages that are historically procedural languages: PHP Fortran, matlab
-
+matrix red pill blue pill
 Object Orientated Programing
-started in the 60s at the same time as interest in graphics and user interfaces, pattern matching (reg exp)
-Simula  helped inspire the actor model of concurrent computation (messaging orientated programming)
+===
+
+Catagrorized as part of the **Structured Paradigms** of computer programming paradigms.
+
+**OOP** ranges from:
+  * **pure OO** languages such as : Python, Ruby, Scala, Smalltalk, Eiffel
+  * Languages **designed** mainly for OO programming: Java, C++, C#,
+  * Languages that are **procedural**: PHP, Fortran, matlab.
+
+> side note: **Java, C++, C#**,  are **Class-Orientated not Object Orientated** . One needs to create a class in order to instantiate an object.<br/><br/>
+However, In JS you create a brand new object "out of thin air" each time a constructor function is called *which erronerosly lends itself to the idea that JS may have classes.*
+
+## Brief History of Object Orientated Programing
+
+* began ~ 60s
+* Graphics and user interfaces (sketchpad by Ian Sutherland),
+  - pattern matching (reg exp)
+  - creation of Simula Programing langaguge by Ole-Johan Dahl and Kristen Nygaard
+     - introduced objects, classes, inheritance, subclasses, virtual procedures, coroutines, discrete event simulation, and features of garbage collection.
+     - helped inspire the actor model of concurrent computation (messaging orientated programming)
 inspiriation for the development of
- Smalltalk and later object-oriented programming languages.
+ Smalltalk which was the progenitor for most of the other object-oriented programming languages we know today.
 
-  lead designer Alan Kay:
-    I'm sorry that I long ago coined the term "objects" for this topic because it gets many people to focus on the lesser idea. The big idea is "messaging"
-
+===============EXCLUDE===========================================
 worked on sketchpad with Ivan Sutherland MIT:
   applliying constrainst of physics to achieve goals
   https://www.youtube.com/watch?v=6orsmFndx_o
@@ -26,16 +36,7 @@ worked on sketchpad with Ivan Sutherland MIT:
 
 designer of GRail (GRaphical Input Language ):
  https://www.youtube.com/watch?v=QQhVQ1UG6aM
-
-Idea :
-    obj {}
-      -> have a notion of this
-      -> data would be perfectly encapsulate as attributes
-      -> communicate with messages to other objects using public methods
-
-      (was to have data perfectly encapsulated as attributes of objects with the notion of "self/this"
-      and would be able to manipulate the data with private methods and communicate with other objects
-      using public methods sending messages.)
+======================================================================
 
 SLIDE 2 ==============================================================================================
 Criticisms of OOP
@@ -67,6 +68,21 @@ Rebuttels from OO commmunity
     We don't need classes to make lots of similar objects… Objects inherit from objects.
     What could be more object oriented than that?"
 
+  lead designer of SmallTalk Alan Kay:
+    I'm sorry that I long ago coined the term "objects" for this topic because it gets many people to focus on the lesser idea {of objects}. The big idea is "messaging"
+      OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. (Smalltalk and lisp)
+http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en
+
+Idea :
+    obj {}
+      -> have a notion of this
+      -> data would be perfectly encapsulate as attributes
+      -> communicate with messages to other objects using public methods
+
+      (was to have data perfectly encapsulated as attributes of objects with the notion of "self/this"
+      and would be able to manipulate the data with private methods and communicate with other objects
+      using public methods sending messages.)
+
   ***Kyle Simpson
   We have spent the better part of 19 years since JS was inveneted pretending that
    its internal mechanisms are class based so we spent all our time trying to syntactictly sugar-coat it
@@ -74,23 +90,28 @@ Rebuttels from OO commmunity
 
   https://app.pluralsight.com/player?course=advanced-javascript&author=kyle-simpson&name=advanced-javascript-m4&clip=9&mode=live
 
+
 SLIDE 4 ==============================================================================================
 Classical vs prototypical inheritance*
+--------------------------------------
+
 TLDR;
 B.Eich (js inventor) works at Netscape
 Netscape management jump on Java popularity bandwagon
 JS is billed as Class-ical inheritance program langaguge.
-Not how it was intended.
+Not how it was intended!!! 8-%
 in JS
-  -> Objects are not * based on * their constructor prototypes.
-  -> Objects are * linked to * their constructor prototype.
-  -> Object properties/methods shadow prototypes
+  -> 1. Objects are not * based on * their constructor prototypes.
+  -> 2. Objects are * linked to * their constructor prototype.
+  -> 3. Object properties/methods shadow prototypes
 
-SLIDE 4B ==============================================================================================
 * inheritance means copy (with no link -- think biology) is a misnomer for prototypical ... better word is delegation.
 
-prototypical inheritance
-------------------------
+Prototypes
+---------
+1. Based On: comes from class orientated program thinking such as C# where a class is like a blueprint and you get an unrelated object from that class
+2. In Js a constructor function creates an object that is *linked to* the *constructor function*s prototype not *based on* the contstructors prototye
+
 thanks to Doug Crockford (JavaScript the good parts, monads and gonads) we have
 built in to ES5:
 
@@ -102,13 +123,19 @@ where `o` is the object we wish to delegate to
   return new F();
 };
 ```
-* Prototype object oriented programming uses generalized objects, which can be cloned (maintaining a link) and extended.
-* Class-based paradigm, uses generalized Classes which are extended when used by another class, method names
-  are kept the same (for extensability) but instances have no connection to the class.
+
+
+prototypical delegation vs inheritance
+-----------------------------------------
+* Prototype-delegation based object oriented programming uses generalized objects, which can be *cloned while maintaining a link* and *extended*.
+* Class-based paradigm, uses generalized *Classes which are extended when used by another class*, method names
+  are kept the same (for extensability) but *instances have no connection to the class*.
+
+  Another way to think about this is class based inheritance is more like dna replication while prototye-delegation is one object linked to another
 
               PROTOTYPICAL INHERITANCE || CLASSICAL INHERITANCE
               ==================================================
-ABSTRACTIONS||  object <- object       || classes -> objects   ||   the direction of the arrows...
+ABSTRACTIONS||  object <- object       || classes -> objects   ||   Note the direction of the arrows
 ----------------------------------------------------------------
 Differences ||  var human = {}         || class Human = {}
             ||  var man =              || class Man extends Human = {}
@@ -126,6 +153,31 @@ inheritance ||     Object.create(human)||
                * can create and        ||         -> have to create and instantiate at same time
                 instantiate at         ||         -> have to force-shadow which leads to confusing this ref.
                 different time *
+
+<table>
+    <thead>
+      <th></th>
+      <th>PROTOTYPICAL DELEGATION</th>
+      <th>CLASSICAL INHERITANCE</th>
+    </thead>
+    <tbody>
+    <tr>
+      <td>ABSTRACTIONS</td>
+      <td>object <- object</td>
+      <td>classes -> objects</td>
+    </tr>
+    <tr>
+      <td>Differences In Relations</td>
+      <td>var Human = {} var man = Object.create(human) var Tom = Object.crate(man)</td>
+      <td>Class Human = {} Class Man extends Human = {} Tom extends new Man()</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Facory Functions - allow for seperation of creation and instantiaion</td>
+      <td>Tight Coupling -> refactoring ripples -> The fragile base class problem-> Inflexible hierarchy problem -> gorilla/banana-> viscosity DRY etc-> duplication by necessity problem-> have to create and instantiate at same time-> have to force-shadow which leads to confusing this ref.</td>
+    </tr>
+    </tbody>
+</table>
 
 
 HOW TO
@@ -165,9 +217,6 @@ var person = new Object({
 
 
 var person1 = Object.create(person);
-
-
-Object.create()
 
 https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_JS
 

@@ -1,0 +1,132 @@
+{
+  "slides": [
+    [
+      {
+        "id": 0,
+        "title": "fff",
+        "contents": "fff",
+        "isEditing": false
+      }
+    ],
+    [
+      {
+        "id": 0,
+        "title": "01 - Intro",
+        "contents": "BACKGROUND\n===============================\nObject Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.\n\nOOP ranges from:\n  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel\n  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated\n  * Languages that are historically procedural languages: PHP Fortran, matlab\n\nObject Orientated Programing\nstarted in the 60s at the same time as interest in graphics and user interfaces, pattern matching (reg exp).\n\nSimula  helped inspire the actor model of concurrent computation (messaging orientated programming)\ninspiriation for the development of\n Smalltalk and later object-oriented programming languages.\n\nlead designer Alan Kay:\n    I'm sorry that I long ago coined the term \"objects\" for this topic because it gets many people to focus on the lesser idea. The big idea is \"messaging\"\n\nworked on sketchpad with Ivan Sutherland MIT:\n  applliying constrainst of physics to achieve goals\n  https://www.youtube.com/watch?v=6orsmFndx_o\n  https://www.youtube.com/watch?v=p2LZLYcu_JY\n\ndesigner of GRail (GRaphical Input Language ):\n https://www.youtube.com/watch?v=QQhVQ1UG6aM\n\nIdea :\n    obj {}\n      -> have a notion of this\n      -> data would be perfectly encapsulate as attributes\n      -> communicate with messages to other objects using public methods\n\n      (was to have data perfectly encapsulated as attributes of objects with the notion of \"self/this\"\n      and would be able to manipulate the data with private methods and communicate with other objects\n      using public methods sending messages.)\n",
+        "isEditing": false
+      }
+    ],
+    [
+      {
+        "id": 1,
+        "title": "02 -- Criticism of OO",
+        "contents": "Criticisms of OOP\nLuca Cardelli has claimed that:\n   OOP code is \"intrinsically less efficient\" than procedural code,\n  that OOP can take longer to compile, and\n  that OOP languages have \"extremely poor modularity properties with respect to class extension and modification\",\n  and tend to be extremely complex.\n\n  ***The problem with object-oriented languages {sic javascript } is they've got all this implicit\n   environment that they carry around with them.\n   You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. \n      Joe Armstrong, the principal inventor of Erlang:",
+        "isEditing": false
+      },
+      {
+        "id": 0,
+        "title": "01 - Intro",
+        "contents": "BACKGROUND\n===============================\nObject Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.\n\nOOP ranges from:\n  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel\n  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated\n  * Languages that are historically procedural languages: PHP Fortran, matlab\n\nObject Orientated Programing\nstarted in the 60s at the same time as interest in graphics and user interfaces, pattern matching (reg exp).\n\nSimula  helped inspire the actor model of concurrent computation (messaging orientated programming)\ninspiriation for the development of\n Smalltalk and later object-oriented programming languages.\n\nlead designer Alan Kay:\n    I'm sorry that I long ago coined the term \"objects\" for this topic because it gets many people to focus on the lesser idea. The big idea is \"messaging\"\n\nworked on sketchpad with Ivan Sutherland MIT:\n  applliying constrainst of physics to achieve goals\n  https://www.youtube.com/watch?v=6orsmFndx_o\n  https://www.youtube.com/watch?v=p2LZLYcu_JY\n\ndesigner of GRail (GRaphical Input Language ):\n https://www.youtube.com/watch?v=QQhVQ1UG6aM\n\nIdea :\n    obj {}\n      -> have a notion of this\n      -> data would be perfectly encapsulate as attributes\n      -> communicate with messages to other objects using public methods\n\n      (was to have data perfectly encapsulated as attributes of objects with the notion of \"self/this\"\n      and would be able to manipulate the data with private methods and communicate with other objects\n      using public methods sending messages.)\n",
+        "isEditing": false
+      }
+    ],
+    [
+      {
+        "id": 2,
+        "title": "03",
+        "contents": "Rebuttels from OO commmunity\n  *** Object-oriented programming is more than just classes and objects;\n  it's a whole programming paradigm based around objects (data structures)\n  that contain data fields and methods.\n  It is essential to understand this;\n  using classes to organize a bunch of unrelated methods together is not object orientation.\n      Junade Ali, Mastering PHP Design Patterns\n\n  ***Douglas Crockford:\n    \"you make prototype objects, and then … make new instances.\n    Objects are mutable in JavaScript, so we can augment the new instances, giving them new fields and methods.\n    These can then act as prototypes for even newer objects.\n    We don't need classes to make lots of similar objects… Objects inherit from objects.\n    What could be more object oriented than that?\"\n\n  ***Kyle Simpson\n  We have spent the better part of 19 years since JS was inveneted pretending that\n   its internal mechanisms are class based so we spent all our time trying to syntactictly sugar-coat it\n   instead of realizing that JS internal mechanisms are **linkages not copies**.\n\n  https://app.pluralsight.com/player?course=advanced-javascript&author=kyle-simpson&name=advanced-javascript-m4&clip=9&mode=live",
+        "isEditing": false
+      },
+      {
+        "id": 1,
+        "title": "02 -- Criticism of OO",
+        "contents": "Criticisms of OOP\nLuca Cardelli has claimed that:\n   OOP code is \"intrinsically less efficient\" than procedural code,\n  that OOP can take longer to compile, and\n  that OOP languages have \"extremely poor modularity properties with respect to class extension and modification\",\n  and tend to be extremely complex.\n\n  ***The problem with object-oriented languages {sic javascript } is they've got all this implicit\n   environment that they carry around with them.\n   You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. \n      Joe Armstrong, the principal inventor of Erlang:",
+        "isEditing": false
+      },
+      {
+        "id": 0,
+        "title": "01 - Intro",
+        "contents": "BACKGROUND\n===============================\nObject Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.\n\nOOP ranges from:\n  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel\n  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated\n  * Languages that are historically procedural languages: PHP Fortran, matlab\n\nObject Orientated Programing\nstarted in the 60s at the same time as interest in graphics and user interfaces, pattern matching (reg exp).\n\nSimula  helped inspire the actor model of concurrent computation (messaging orientated programming)\ninspiriation for the development of\n Smalltalk and later object-oriented programming languages.\n\nlead designer Alan Kay:\n    I'm sorry that I long ago coined the term \"objects\" for this topic because it gets many people to focus on the lesser idea. The big idea is \"messaging\"\n\nworked on sketchpad with Ivan Sutherland MIT:\n  applliying constrainst of physics to achieve goals\n  https://www.youtube.com/watch?v=6orsmFndx_o\n  https://www.youtube.com/watch?v=p2LZLYcu_JY\n\ndesigner of GRail (GRaphical Input Language ):\n https://www.youtube.com/watch?v=QQhVQ1UG6aM\n\nIdea :\n    obj {}\n      -> have a notion of this\n      -> data would be perfectly encapsulate as attributes\n      -> communicate with messages to other objects using public methods\n\n      (was to have data perfectly encapsulated as attributes of objects with the notion of \"self/this\"\n      and would be able to manipulate the data with private methods and communicate with other objects\n      using public methods sending messages.)\n",
+        "isEditing": false
+      }
+    ],
+    [
+      {
+        "id": 2,
+        "title": "03 - rebuttal",
+        "contents": "Rebuttels from OO commmunity\n  *** Object-oriented programming is more than just classes and objects;\n  it's a whole programming paradigm based around objects (data structures)\n  that contain data fields and methods.\n  It is essential to understand this;\n  using classes to organize a bunch of unrelated methods together is not object orientation.\n      Junade Ali, Mastering PHP Design Patterns\n\n  ***Douglas Crockford:\n    \"you make prototype objects, and then … make new instances.\n    Objects are mutable in JavaScript, so we can augment the new instances, giving them new fields and methods.\n    These can then act as prototypes for even newer objects.\n    We don't need classes to make lots of similar objects… Objects inherit from objects.\n    What could be more object oriented than that?\"\n\n  ***Kyle Simpson\n  We have spent the better part of 19 years since JS was inveneted pretending that\n   its internal mechanisms are class based so we spent all our time trying to syntactictly sugar-coat it\n   instead of realizing that JS internal mechanisms are **linkages not copies**.\n\n  https://app.pluralsight.com/player?course=advanced-javascript&author=kyle-simpson&name=advanced-javascript-m4&clip=9&mode=live",
+        "isEditing": false
+      },
+      {
+        "id": 1,
+        "title": "02 -- Criticism of OO",
+        "contents": "Criticisms of OOP\nLuca Cardelli has claimed that:\n   OOP code is \"intrinsically less efficient\" than procedural code,\n  that OOP can take longer to compile, and\n  that OOP languages have \"extremely poor modularity properties with respect to class extension and modification\",\n  and tend to be extremely complex.\n\n  ***The problem with object-oriented languages {sic javascript } is they've got all this implicit\n   environment that they carry around with them.\n   You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. \n      Joe Armstrong, the principal inventor of Erlang:",
+        "isEditing": false
+      },
+      {
+        "id": 0,
+        "title": "01 - Intro",
+        "contents": "BACKGROUND\n===============================\nObject Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.\n\nOOP ranges from:\n  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel\n  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated\n  * Languages that are historically procedural languages: PHP Fortran, matlab\n\nObject Orientated Programing\nstarted in the 60s at the same time as interest in graphics and user interfaces, pattern matching (reg exp).\n\nSimula  helped inspire the actor model of concurrent computation (messaging orientated programming)\ninspiriation for the development of\n Smalltalk and later object-oriented programming languages.\n\nlead designer Alan Kay:\n    I'm sorry that I long ago coined the term \"objects\" for this topic because it gets many people to focus on the lesser idea. The big idea is \"messaging\"\n\nworked on sketchpad with Ivan Sutherland MIT:\n  applliying constrainst of physics to achieve goals\n  https://www.youtube.com/watch?v=6orsmFndx_o\n  https://www.youtube.com/watch?v=p2LZLYcu_JY\n\ndesigner of GRail (GRaphical Input Language ):\n https://www.youtube.com/watch?v=QQhVQ1UG6aM\n\nIdea :\n    obj {}\n      -> have a notion of this\n      -> data would be perfectly encapsulate as attributes\n      -> communicate with messages to other objects using public methods\n\n      (was to have data perfectly encapsulated as attributes of objects with the notion of \"self/this\"\n      and would be able to manipulate the data with private methods and communicate with other objects\n      using public methods sending messages.)\n",
+        "isEditing": false
+      }
+    ],
+    [
+      {
+        "id": 3,
+        "title": "04 Class vs Proto",
+        "contents": "Classical vs prototypical inheritance*\nTLDR;\nB.Eich (js inventor) works at Netscape\nNetscape management jump on Java popularity bandwagon\nJS is billed as Class-ical inheritance program langaguge.\nNot how it was intended.\nin JS\n  -> Objects are not * based on * their constructor prototypes.\n  -> Objects are * linked to * their constructor prototype.\n  -> Object properties/methods shadow prototypes\n",
+        "isEditing": false
+      },
+      {
+        "id": 2,
+        "title": "03 - rebuttal",
+        "contents": "Rebuttels from OO commmunity\n  *** Object-oriented programming is more than just classes and objects;\n  it's a whole programming paradigm based around objects (data structures)\n  that contain data fields and methods.\n  It is essential to understand this;\n  using classes to organize a bunch of unrelated methods together is not object orientation.\n      Junade Ali, Mastering PHP Design Patterns\n\n  ***Douglas Crockford:\n    \"you make prototype objects, and then … make new instances.\n    Objects are mutable in JavaScript, so we can augment the new instances, giving them new fields and methods.\n    These can then act as prototypes for even newer objects.\n    We don't need classes to make lots of similar objects… Objects inherit from objects.\n    What could be more object oriented than that?\"\n\n  ***Kyle Simpson\n  We have spent the better part of 19 years since JS was inveneted pretending that\n   its internal mechanisms are class based so we spent all our time trying to syntactictly sugar-coat it\n   instead of realizing that JS internal mechanisms are **linkages not copies**.\n\n  https://app.pluralsight.com/player?course=advanced-javascript&author=kyle-simpson&name=advanced-javascript-m4&clip=9&mode=live",
+        "isEditing": false
+      },
+      {
+        "id": 1,
+        "title": "02 -- Criticism of OO",
+        "contents": "Criticisms of OOP\nLuca Cardelli has claimed that:\n   OOP code is \"intrinsically less efficient\" than procedural code,\n  that OOP can take longer to compile, and\n  that OOP languages have \"extremely poor modularity properties with respect to class extension and modification\",\n  and tend to be extremely complex.\n\n  ***The problem with object-oriented languages {sic javascript } is they've got all this implicit\n   environment that they carry around with them.\n   You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. \n      Joe Armstrong, the principal inventor of Erlang:",
+        "isEditing": false
+      },
+      {
+        "id": 0,
+        "title": "01 - Intro",
+        "contents": "BACKGROUND\n===============================\nObject Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.\n\nOOP ranges from:\n  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel\n  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated\n  * Languages that are historically procedural languages: PHP Fortran, matlab\n\nObject Orientated Programing\nstarted in the 60s at the same time as interest in graphics and user interfaces, pattern matching (reg exp).\n\nSimula  helped inspire the actor model of concurrent computation (messaging orientated programming)\ninspiriation for the development of\n Smalltalk and later object-oriented programming languages.\n\nlead designer Alan Kay:\n    I'm sorry that I long ago coined the term \"objects\" for this topic because it gets many people to focus on the lesser idea. The big idea is \"messaging\"\n\nworked on sketchpad with Ivan Sutherland MIT:\n  applliying constrainst of physics to achieve goals\n  https://www.youtube.com/watch?v=6orsmFndx_o\n  https://www.youtube.com/watch?v=p2LZLYcu_JY\n\ndesigner of GRail (GRaphical Input Language ):\n https://www.youtube.com/watch?v=QQhVQ1UG6aM\n\nIdea :\n    obj {}\n      -> have a notion of this\n      -> data would be perfectly encapsulate as attributes\n      -> communicate with messages to other objects using public methods\n\n      (was to have data perfectly encapsulated as attributes of objects with the notion of \"self/this\"\n      and would be able to manipulate the data with private methods and communicate with other objects\n      using public methods sending messages.)\n",
+        "isEditing": false
+      }
+    ],
+    [
+      {
+        "id": 4,
+        "title": "04b",
+        "contents": "* inheritance means copy (with no link -- think biology) is a misnomer for prototypical ... better word is delegation.\n\nprototypical inheritance\n------------------------\nthanks to Doug Crockford (JavaScript the good parts, monads and gonads) we have\nbuilt in to ES5:\n\nwhere `o` is the object we wish to delegate to\n\n```function object(o) {\n  function F() {}\n  F.prototype = o;\n  return new F();\n};\n```\n* Prototype object oriented programming uses generalized objects, which can be cloned (maintaining a link) and extended.\n* Class-based paradigm, uses generalized Classes which are extended when used by another class, method names\n  are kept the same (for extensability) but instances have no connection to the class.\n\n              PROTOTYPICAL INHERITANCE || CLASSICAL INHERITANCE\n              ==================================================\nABSTRACTIONS||  object <- object       || classes -> objects   ||   the direction of the arrows...\n----------------------------------------------------------------\nDifferences ||  var human = {}         || class Human = {}\n            ||  var man =              || class Man extends Human = {}\n     in     ||     Object.create(human)|| Boaz extends new Man()\n            ||  var Boaz =             ||\ninheritance ||     Object.create(human)||\n----------------------------------------------------------------\n                Factory Functions      || tight coupling ->\n                                       ||       refactoring ripples\n                                       ||       -> The fragile base class problem\n                                       ||         -> Inflexible hierarchy problem\n                                       ||         -> gorilla/banana\n                                       ||         -> viscosity DRY etc\n                                       ||         -> duplication by necessity problem\n               * can create and        ||         -> have to create and instantiate at same time\n                instantiate at         ||         -> have to force-shadow which leads to confusing this ref.\n                different time *\n\n\nHOW TO\nhttp://imagizer.imageshack.us/a/img911/5519/fxn2D3.png",
+        "isEditing": false
+      },
+      {
+        "id": 3,
+        "title": "04 Class vs Proto",
+        "contents": "Classical vs prototypical inheritance*\nTLDR;\nB.Eich (js inventor) works at Netscape\nNetscape management jump on Java popularity bandwagon\nJS is billed as Class-ical inheritance program langaguge.\nNot how it was intended.\nin JS\n  -> Objects are not * based on * their constructor prototypes.\n  -> Objects are * linked to * their constructor prototype.\n  -> Object properties/methods shadow prototypes\n",
+        "isEditing": false
+      },
+      {
+        "id": 2,
+        "title": "03 - rebuttal",
+        "contents": "Rebuttels from OO commmunity\n  *** Object-oriented programming is more than just classes and objects;\n  it's a whole programming paradigm based around objects (data structures)\n  that contain data fields and methods.\n  It is essential to understand this;\n  using classes to organize a bunch of unrelated methods together is not object orientation.\n      Junade Ali, Mastering PHP Design Patterns\n\n  ***Douglas Crockford:\n    \"you make prototype objects, and then … make new instances.\n    Objects are mutable in JavaScript, so we can augment the new instances, giving them new fields and methods.\n    These can then act as prototypes for even newer objects.\n    We don't need classes to make lots of similar objects… Objects inherit from objects.\n    What could be more object oriented than that?\"\n\n  ***Kyle Simpson\n  We have spent the better part of 19 years since JS was inveneted pretending that\n   its internal mechanisms are class based so we spent all our time trying to syntactictly sugar-coat it\n   instead of realizing that JS internal mechanisms are **linkages not copies**.\n\n  https://app.pluralsight.com/player?course=advanced-javascript&author=kyle-simpson&name=advanced-javascript-m4&clip=9&mode=live",
+        "isEditing": false
+      },
+      {
+        "id": 1,
+        "title": "02 -- Criticism of OO",
+        "contents": "Criticisms of OOP\nLuca Cardelli has claimed that:\n   OOP code is \"intrinsically less efficient\" than procedural code,\n  that OOP can take longer to compile, and\n  that OOP languages have \"extremely poor modularity properties with respect to class extension and modification\",\n  and tend to be extremely complex.\n\n  ***The problem with object-oriented languages {sic javascript } is they've got all this implicit\n   environment that they carry around with them.\n   You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. \n      Joe Armstrong, the principal inventor of Erlang:",
+        "isEditing": false
+      },
+      {
+        "id": 0,
+        "title": "01 - Intro",
+        "contents": "BACKGROUND\n===============================\nObject Orientated Programing is catagrorized as part of the Structured Paradigms of computer programming paradigms.\n\nOOP ranges from:\n  * pure OO languages such as : Python, Ruby, Scala, Smalltalk, Eiffel\n  * Languages designed mainly for OO programming: Java, C++, C#, <<= these are Class-Orientated not Object Orientated\n  * Languages that are historically procedural languages: PHP Fortran, matlab\n\nObject Orientated Programing\nstarted in the 60s at the same time as interest in graphics and user interfaces, pattern matching (reg exp).\n\nSimula  helped inspire the actor model of concurrent computation (messaging orientated programming)\ninspiriation for the development of\n Smalltalk and later object-oriented programming languages.\n\nlead designer Alan Kay:\n    I'm sorry that I long ago coined the term \"objects\" for this topic because it gets many people to focus on the lesser idea. The big idea is \"messaging\"\n\nworked on sketchpad with Ivan Sutherland MIT:\n  applliying constrainst of physics to achieve goals\n  https://www.youtube.com/watch?v=6orsmFndx_o\n  https://www.youtube.com/watch?v=p2LZLYcu_JY\n\ndesigner of GRail (GRaphical Input Language ):\n https://www.youtube.com/watch?v=QQhVQ1UG6aM\n\nIdea :\n    obj {}\n      -> have a notion of this\n      -> data would be perfectly encapsulate as attributes\n      -> communicate with messages to other objects using public methods\n\n      (was to have data perfectly encapsulated as attributes of objects with the notion of \"self/this\"\n      and would be able to manipulate the data with private methods and communicate with other objects\n      using public methods sending messages.)\n",
+        "isEditing": false
+      }
+    ]
+  ]
+}
